@@ -19,7 +19,7 @@
 # in the templates via {{ site.myvariable }}.
 
 title: DHLinux Wiki
-description: Materials related to the "Creating LAMP Infrastructure for DH Projects course at DHSI"
+description: Materials related to the "Creating LAMP Infrastructure for DH Projects course" at DHSI
 baseurl: "/" # the subpath of your site, e.g. /blog
 #url: "http://localhost" # the base hostname & protocol for your site, e.g. http://example.com
 twitter_username: songsthatsaved
