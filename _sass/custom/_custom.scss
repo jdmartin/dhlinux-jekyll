@@ -1,0 +1,26 @@
+.side-bar {
+    background-color: black;
+    color: white;
+}
+.site-title {
+    color: #ff9b76;
+}
+.nav-category {
+    color: aqua;
+}
+.nav-list-link {
+    color: cornflowerblue;
+}
+.nav-list .nav-list-item .nav-list-link:hover, .nav-list .nav-list-item .nav-list-link.active {
+    background-image: none;
+    color: white;
+}
+.site-title:hover {
+    background-image: none;
+}
+.site-footer {
+    color: white;
+}
+.site-footer a {
+    color: #ac99f4;
+}
