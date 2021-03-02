@@ -1,6 +1,7 @@
 ---
 layout: default
 title: MySQL
+last_modified_date: 2021-03-02 15:32:00 -0800
 ---
 
 ## MariaDB (also MySQL)
