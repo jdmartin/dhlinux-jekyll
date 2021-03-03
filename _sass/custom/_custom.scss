@@ -1,6 +1,5 @@
 .side-bar {
-    background-color: black;
-    color: white;
+    background-color: #1c1c1c;
 }
 .site-title {
     color: #ff9b76;
@@ -14,6 +13,15 @@
 .nav-list .nav-list-item .nav-list-link:hover, .nav-list .nav-list-item .nav-list-link.active {
     background-image: none;
     color: white;
+}
+.nav-list .nav-list-item > .nav-list .nav-list-item .nav-list-link {
+    color: #c6a9ff;
+}
+.nav-list .nav-list-item .nav-list-expander {
+    color: aqua;
+}
+.nav-list .nav-list-item .nav-list-expander:hover {
+    background-image: none;
 }
 .site-title:hover {
     background-image: none;
