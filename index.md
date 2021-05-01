@@ -21,20 +21,20 @@ DHSI
 Quick Reference
 ---------------
 
--   [Unix](Docs/Unix)
--   [Linux](Docs/Linux)
--   [VirtualBox](Docs/VirtualBox)
--   [BASH](Docs/BASH)
--   [LAMP Stack](Docs/LAMP%20Stack)
--   [Apache](Docs/Apache)
--   [MariaDB](Docs/MySQL)
--   [PHP](Docs/PHP)
--   [Tutorials and Setup Guides](Tutorials/Tutorials%20and%20Setup%20Guides)
+-   [Unix](Docs/Unix/)
+-   [Linux](Docs/Linux/)
+-   [VirtualBox](Docs/VirtualBox/)
+-   [BASH](Docs/BASH/)
+-   [LAMP Stack](Docs/LAMP%20Stack/)
+-   [Apache](Docs/Apache/)
+-   [MariaDB](Docs/MySQL/)
+-   [PHP](Docs/PHP/)
+-   [Tutorials and Setup Guides](Tutorials/Tutorials%20and%20Setup%20Guides/)
 
 Projects you might try
 ----------------------
 
--   [Projects](Projects/Projects)
+-   [Projects](Projects/Projects/)
 
 ------------------------------------------------------------------------
 
