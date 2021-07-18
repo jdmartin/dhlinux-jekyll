@@ -7,7 +7,7 @@ layout: default
 
 ## Welcome to the DHLinux Wiki!
 
-### Errors Ahead: Pages Currently Undergoing a Revamp - Expected Completion: July 2021
+### Errors Ahead: Pages Currently Undergoing a Revamp - Expected Completion: August 2021
 <br/>
 This Wiki remains a work-in-progress, and is meant to contain and extend the notes from the '[Creating LAMP Infrastructure for DH Projects](https://dhlinux.org/2019Coursepack.pdf)' course given at [DHSI](http://dhsi.org/).
 
