@@ -103,8 +103,8 @@ There are a lot of options here. I'm going to ignore a bunch, but here are the t
 
     #Privilege Separation is turned on for security
     UsePrivilegeSeparation sandbox
-    AllowUsers {{names of users that need to login only - NOT ROOT}}
-    AddressFamily inet {{ipv4 connections only.}}
+    AllowUsers {names of users that need to login only - NOT ROOT}
+    AddressFamily inet {ipv4 connections only.}
 
     # Authentication:
     LoginGraceTime 30
