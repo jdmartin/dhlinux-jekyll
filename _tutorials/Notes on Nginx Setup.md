@@ -2,7 +2,7 @@
 layout: default
 title: Nginx Setup
 parent: Tutorials and Setup Guides
-last_modified_date: 2021-03-02 16:21:00 -0800
+last_modified_date: 2021-10-28 16:21:00 -0800
 ---
 
 ## Notes on Nginx Setup

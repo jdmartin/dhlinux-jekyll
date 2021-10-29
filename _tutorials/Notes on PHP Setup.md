@@ -2,7 +2,7 @@
 layout: default
 title: PHP Setup
 parent: Tutorials and Setup Guides
-last_modified_date: 2021-03-02 16:21:00 -0800
+last_modified_date: 2021-10-28 16:21:00 -0800
 ---
 
 ## Notes on PHP Setup
@@ -21,13 +21,14 @@ Let’s use 'sudo nano' to take a look in /etc/php/7.0/apache2/php.ini
 
 We want to find and ensure that the following configuration defaults are correctly installed:
 
-``
-`max_execution_time = 30`
-`memory_limit = 128M`
-`display_errors = Off `
-`log_errors = On `
-`error_log = /var/log/php/error.log  `
-`register_globals = Off <-- May not exist.  That's a good thing.`
+```
+max_execution_time = 30
+memory_limit = 128M
+display_errors = Off 
+log_errors = On
+error_log = /var/log/php/error.log
+register_globals = Off <-- May not exist.  That's a good thing.
+```
 
 You will need to create the log directory for PHP and give the Apache user ownership:
 
@@ -50,10 +51,11 @@ Testing the Install
 
 With this completed, PHP should be fully functional. Create /var/www/dhsi.dev/public\_html/index.php (N.B. I'm assuming your hostname is dhsi.dev. Change as needed.)
 
-``
-`<?php`
-`       echo '<h1>Hello World</h1>';`
-`?>`
+```
+<?php
+       echo '<h1>Hello World</h1>';
+?>
+```
 
 -   Use Firefox to load <http://dhsi/index.php>
 

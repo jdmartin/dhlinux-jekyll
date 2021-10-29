@@ -2,7 +2,7 @@
 layout: default
 title: Apache Setup
 parent: Tutorials and Setup Guides
-last_modified_date: 2021-03-02 16:15:00 -0800
+last_modified_date: 2021-10-28 16:15:00 -0800
 ---
 
 ## Notes on Apache Setup
@@ -25,28 +25,26 @@ Initial Configuration
 Now, we have to setup our hosts file so that our sites are registered properly with Apache (in these examples, I have chosen the hostname dhsi.dev):
 
 -   sudo nano /etc/hosts (You should see something like this)
-
-``
-`127.0.0.1       localhost`
-`127.0.1.1       dhsi.dev`
-`127.0.1.1       dhsi.dhsi.dev   dhsi`
-
+```
+127.0.0.1       localhost
+127.0.1.1       dhsi.dev
+127.0.1.1       dhsi.dhsi.dev   dhsi
+```
 Now, let’s configure that server to play nicely with our machine.
 
 -   Go ahead and use sudo nano to open /etc/apache2/apache2.conf - This is a file you won’t have permissions to...
 -   Scroll down to the bottom of the file. Add a line of blank space, then this: (Note: **BE SUPER CAREFUL WITH WHITESPACE!**)
 
-``
-``
-`# User Customization                    `
-`     <IfModule mpm_prefork_module>`
-`     StartServers 2`
-`     MinSpareServers 6`
-`     MaxSpareServers 12`
-`     MaxClients 30`
-`     MaxRequestsPerChild 3000`
-`     </IfModule>`
-
+    ```
+    # User Customization
+    <IfModule mpm_prefork_module>
+        StartServers 2
+        MinSpareServers 6
+        MaxSpareServers 12
+        MaxClients 30
+        MaxRequestsPerChild 3000
+    </IfModule>
+    ```
 -   Save, open terminal, sudo service apache2 restart
 
 Setup a Virtual Host
@@ -61,16 +59,16 @@ Now, we’re going to need a place to put our files... Let’s use /var/www/dhsi
 
 Now, let’s make /etc/apache2/sites-available/dhsi.conf
 
-``
-`<VirtualHost *:80>`
-`    ServerAdmin webmaster@localhost`
-`    ServerName dhsi.dev`
-`    ServerAlias www.dhsi.dev`
-`    DocumentRoot /var/www/dhsi.dev/public_html`
-`    ErrorLog /var/www/dhsi.dev/logs/error.log`
-`    CustomLog /var/www/dhsi.dev/logs/access.log combined`
-`</VirtualHost>`
-
+```
+<VirtualHost *:80>
+    ServerAdmin webmaster@localhost
+    ServerName dhsi.dev
+    ServerAlias www.dhsi.dev
+    DocumentRoot /var/www/dhsi.dev/public_html
+    ErrorLog /var/www/dhsi.dev/logs/error.log
+    CustomLog /var/www/dhsi.dev/logs/access.log combined
+</VirtualHost>
+```
 -   Now, you're ready to enable your site.
     -   sudo a2ensite dhsi.conf (This step takes the name of your conf file as an argument.)
     -   restart apache
@@ -79,4 +77,4 @@ See also:
 ---------
 
 -   [PHP](../../Docs/PHP)
--   [MariaDB](../../Docs/MariaDB)
+-   [MariaDB](../../Docs/MySQL)

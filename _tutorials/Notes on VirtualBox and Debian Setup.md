@@ -2,18 +2,18 @@
 layout: default
 title: VirtualBox and Debian Setup
 parent: Tutorials and Setup Guides
-last_modified_date: 2021-03-02 15:58:00 -0800
+last_modified_date: 2021-10-28 15:58:00 -0800
 ---
 
 ## Notes on VirtualBox and Debian Setup
 
 Installing / Updating:
 
-`    VirtualBox: `[`https://www.virtualbox.org/wiki/Downloads`](https://www.virtualbox.org/wiki/Downloads)
+VirtualBox: [https://www.virtualbox.org/wiki/Downloads](https://www.virtualbox.org/wiki/Downloads)
 
 Make sure to grab the Extension Pack, too!
 
-`    Debian: `[`Download` `the` `latest` `stable`](https://www.debian.org/CD/http-ftp/)` (For 64-bit computers, get the amd64.  For 32-bit, i386.)`
+Debian: [Download the latest stable](https://www.debian.org/CD/http-ftp/) (For 64-bit computers, get the amd64.  For 32-bit, i386.)
 
 Just grab the .iso for DVD1. It should have everything you need, and anything else can be pulled down from inside Debian.
 
@@ -93,6 +93,6 @@ Ok, now...
 
 Now, reboot (in terminal: 'reboot', or click the triangle in the top right of GNOME and choose 'Restart' from the power icon.)
 
--   -   Hopefully enjoy a nicer desktop. (Just drag the virtualbox window to resize it. The desktop should fill the available space.)
+   -   Hopefully enjoy a nicer desktop. (Just drag the virtualbox window to resize it. The desktop should fill the available space.)
 
 <Category:Setup>

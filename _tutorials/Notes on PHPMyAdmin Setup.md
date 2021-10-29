@@ -2,7 +2,7 @@
 layout: default
 title: PHPMyAdmin Setup
 parent: Tutorials and Setup Guides
-last_modified_date: 2021-03-02 16:29:00 -0800
+last_modified_date: 2021-10-28 16:29:00 -0800
 ---
 
 ## Notes on PHPMyAdmin Setup
@@ -27,12 +27,13 @@ To set this up, start off by allowing the .htaccess file to work within the phpm
 
 Under the directory section, add the line “AllowOverride All” under “Directory Index”, making the section look like this:
 
-``
-`<Directory /usr/share/phpmyadmin>`
-`        Options FollowSymLinks`
-`        DirectoryIndex index.php`
-`        AllowOverride All`
-`        [...]`
+```
+<Directory /usr/share/phpmyadmin>
+        Options FollowSymLinks
+        DirectoryIndex index.php
+        AllowOverride All
+        [...]
+```
 
 ### Configure the .htaccess file
 
@@ -44,13 +45,20 @@ Start by creating the .htaccess page in the phpmyadmin directory:
 
 Follow up by setting up the user authorization within .htaccess file. Copy and paste the following text in:
 
-``
-`AuthType Basic`
-`AuthName "Restricted Files"`
-`AuthUserFile /etc/.htpasswd `
-`Require valid-user`
+```
+AuthType Basic
+AuthName "Restricted Files"
+AuthUserFile /etc/.htpasswd
+Require valid-user
+```
 
-**AuthType**: This refers to the type of authentication that will be used to the check the passwords. The passwords are checked via HTTP and the keyword Basic should not be changed. **AuthName**: This is text that will be displayed at the password prompt. You can put anything here. **AuthUserFile**: This line designates the server path to the password file (which we will create in the next step.) **Require valid-user**: This line tells the .htaccess file that only users defined in the password file can access the phpMyAdmin login screen. Create the htpasswd file
+**AuthType**: This refers to the type of authentication that will be used to the check the passwords. The passwords are checked via HTTP and the keyword Basic should not be changed. 
+
+**AuthName**: This is text that will be displayed at the password prompt. You can put anything here. 
+
+**AuthUserFile**: This line designates the server path to the password file (which we will create in the next step.) 
+
+**Require valid-user**: This line tells the .htaccess file that only users defined in the password file can access the phpMyAdmin login screen. Create the htpasswd file
 
 Now we will go ahead and create the valid user information.
 

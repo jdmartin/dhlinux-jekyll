@@ -1,7 +1,7 @@
 ---
 layout: default
 title: MySQL
-last_modified_date: 2021-03-02 15:32:00 -0800
+last_modified_date: 2021-10-28 15:32:00 -0800
 ---
 
 ## MariaDB (also MySQL)
@@ -14,7 +14,7 @@ See Also:
 ---------
 
 -   [Overview of the MariaDB Server](https://prezi.com/a6lvi8i-ygmx/mariadb-an-overview/)
--   [Notes on MariaDB Setup](../Tutorials/Notes%20on%20MariaDB%20Setup)
+-   [Notes on MariaDB Setup](../../Tutorials/Notes%20on%20MariaDB%20Setup)
 
 External Links:
 ---------------

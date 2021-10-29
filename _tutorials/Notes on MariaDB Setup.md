@@ -2,7 +2,7 @@
 layout: default
 title: MariaDB/MySQL Setup
 parent: Tutorials and Setup Guides
-last_modified_date: 2021-03-02 16:21:00 -0800
+last_modified_date: 2021-10-28 16:21:00 -0800
 ---
 
 ## Notes on MariaDB Setup
@@ -29,9 +29,10 @@ Enter MariaDB’s root password, and you’ll be presented with a prompt where y
 
 To create a database and grant your users permissions on it, issue the following command. Note that the semicolons (;) at the end of the lines are crucial for ending the commands. Your command should look like this:
 
-``
-`create database dhsi;`
-`grant all on dhsi.* to 'dhsi_user' identified by 'dhsi';`
+```
+create database dhsi;
+grant all on dhsi.* to 'dhsi_user' identified by 'dhsi';
+```
 
 In the example above, dhsi is the name of the database, dhsi\_user is the username, and dhsi is the password. Note that database usernames and passwords are only used by scripts connecting to the database, and that database user account names need not (and perhaps should not) represent actual user accounts on the system.
 

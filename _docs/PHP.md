@@ -1,7 +1,7 @@
 ---
 layout: default
 title: PHP
-last_modified_date: 2021-03-02 15:32:00 -0800
+last_modified_date: 2021-10-28 15:32:00 -0800
 ---
 
 ## PHP
@@ -13,7 +13,7 @@ It represents the 'P' in the [LAMP Stack](../LAMP%20Stack).
 See also:
 ---------
 
-[Notes on PHP Setup](../Tutorials/Notes%20on%20PHP%20Setup)
+[Notes on PHP Setup](../../Tutorials/Notes%20on%20PHP%20Setup)
 
 External links:
 ---------------
