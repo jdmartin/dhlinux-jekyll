@@ -14,7 +14,7 @@ See Also:
 ---------
 
 -   [Overview of the MariaDB Server](https://prezi.com/a6lvi8i-ygmx/mariadb-an-overview/)
--   [Notes on MariaDB Setup](../../Tutorials/Notes%20on%20MariaDB%20Setup)
+-   [Notes on MariaDB Setup](../../tutorials/Notes%20on%20MariaDB%20Setup)
 
 External Links:
 ---------------

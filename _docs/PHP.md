@@ -13,7 +13,7 @@ It represents the 'P' in the [LAMP Stack](../LAMP%20Stack).
 See also:
 ---------
 
-[Notes on PHP Setup](../../Tutorials/Notes%20on%20PHP%20Setup)
+[Notes on PHP Setup](../../tutorials/Notes%20on%20PHP%20Setup)
 
 External links:
 ---------------

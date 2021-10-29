@@ -15,5 +15,5 @@ See Also:
 ---------
 
 -   [Overview of the History of Apache - DHSI 2015, Jon Martin](https://prezi.com/0nxhpwoqs1ob/the-apache-web-server/)
--   [Notes on Apache Setup](../../Tutorials/Notes%20on%20Apache%20Setup)
+-   [Notes on Apache Setup](../../tutorials/Notes%20on%20Apache%20Setup)
 -   [PHP](../PHP)
