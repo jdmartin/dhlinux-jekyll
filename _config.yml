@@ -20,8 +20,15 @@
 
 title: DHLinux Wiki
 description: Materials related to the "Creating LAMP Infrastructure for DH Projects course" at DHSI
+#Serving
+detach: false
+#port                : 4000
+#host: 127.0.0.1
+show_dir_listing: false
+url: https://wiki.dhlinux.org
 baseurl: "/" # the subpath of your site, e.g. /blog
 #url: "http://localhost" # the base hostname & protocol for your site, e.g. http://example.com
+#url: "https://wiki.dhlinux.org"
 twitter_username: songsthatsaved
 github_username:  jdmartin
 # Build settings
