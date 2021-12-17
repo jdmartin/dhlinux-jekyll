@@ -12,7 +12,7 @@ last_modified_date: 2021-10-28 15:32:00 -0800
 See also
 --------
 
-[Tutorials](../../tutorials/Tutorials%20and%20Setup%20Guides/)
+[Tutorials](../../tutorials/Tutorials-and-Setup-Guides/)
 
 External Links
 --------------

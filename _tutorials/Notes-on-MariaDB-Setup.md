@@ -43,4 +43,4 @@ With that completed, you’ve successfully configured MariaDB, and you may now p
 Next Steps
 ----------
 
-With Apache and MariaDB installed, let’s install PHP: [Notes on PHP Setup](../Notes%20on%20PHP%20Setup)
+With Apache and MariaDB installed, let’s install PHP: [Notes on PHP Setup](../Notes-on-PHP-Setup)

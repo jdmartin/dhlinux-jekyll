@@ -16,7 +16,7 @@ Former participants of the course are welcome, and invited, to get in touch if t
 DHSI
 ----
 
--   [Tutorials and Setup Guides](tutorials/Tutorials%20and%20Setup%20Guides/)
+-   [Tutorials and Setup Guides](tutorials/Tutorials-and-Setup-Guides/)
 
 Quick Reference
 ---------------
@@ -25,11 +25,11 @@ Quick Reference
 -   [Linux](docs/Linux/)
 -   [VirtualBox](docs/VirtualBox/)
 -   [BASH](docs/BASH/)
--   [LAMP Stack](docs/LAMP%20Stack/)
+-   [LAMP Stack](docs/LAMP-Stack/)
 -   [Apache](docs/Apache/)
 -   [MariaDB](docs/MySQL/)
 -   [PHP](docs/PHP/)
--   [Tutorials and Setup Guides](tutorials/Tutorials%20and%20Setup%20Guides/)
+-   [Tutorials and Setup Guides](tutorials/Tutorials-and-Setup-Guides/)
 
 Projects you might try
 ----------------------

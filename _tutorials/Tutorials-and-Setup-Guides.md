@@ -13,13 +13,13 @@ This article contains links to the various tutorials and prezi presentations on 
 Installation Tutorials
 ----------------------
 
--   [Notes on VirtualBox and Debian Setup](../Notes%20on%20VirtualBox%20and%20Debian%20Setup)
--   [Notes on Post-Debian Installation](../Notes%20on%20Post-Debian%20Installation)
--   [Notes on Apache Setup](../Notes%20on%20Apache%20Setup)
--   [Notes on Nginx Setup](../Notes%20on%20Nginx%20Setup)
--   [Notes on MariaDB Setup](../Notes%20on%20MariaDB%20Setup)
--   [Notes on PHP Setup](../Notes%20on%20PHP%20Setup)
--   [Notes on PHPMyAdmin Setup](../Notes%20on%20PHPMyAdmin%20Setup)
+-   [Notes on VirtualBox and Debian Setup](../Notes-on-VirtualBox-and-Debian-Setup)
+-   [Notes on Post-Debian Installation](../Notes-on-Post-Debian-Installation)
+-   [Notes on Apache Setup](../Notes-on-Apache-Setup)
+-   [Notes on Nginx Setup](../Notes-on-Nginx-Setup)
+-   [Notes on MariaDB Setup](../Notes-on-MariaDB-Setup)
+-   [Notes on PHP Setup](../Notes-on-PHP-Setup)
+-   [Notes on PHPMyAdmin Setup](../Notes-on-PHPMyAdmin-Setup)
 
 Notes on Tools
 --------------
