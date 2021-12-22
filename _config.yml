@@ -35,6 +35,7 @@ github_username:  jdmartin
 theme: "just-the-docs"
 plugins:
   - jekyll-feed
+  - jekyll-sitemap
 
 # Back to top link
 back_to_top: true
