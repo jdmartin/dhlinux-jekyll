@@ -39,3 +39,5 @@ Projects you might try
 ------------------------------------------------------------------------
 
 ###### Debian logo courtesy of [Debian.org](https://www.debian.org/).
+<h5>Page Last Updated: {{ page.last_modified_at | date: '%Y %B %d' }}</h5>
+<br>

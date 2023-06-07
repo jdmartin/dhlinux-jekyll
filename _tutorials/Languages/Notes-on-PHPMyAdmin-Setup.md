@@ -3,8 +3,9 @@ layout: default
 title: PHPMyAdmin Setup
 parent: Languages
 nav_order: 2
-last_modified_date: 2021-10-28 16:29:00 -0800
 ---
+<h5>Page Last Updated: {{ page.last_modified_at | date: '%Y %B %d' }}</h5>
+<br>
 
 ## Notes on PHPMyAdmin Setup
 
