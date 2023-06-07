@@ -19,16 +19,12 @@
 # in the templates via {{ site.myvariable }}.
 
 title: DHLinux Wiki
-description: Materials related to the "Creating LAMP Infrastructure for DH Projects course" at DHSI
+description: Materials for Operating and Securing your Servers and Applications
 #Serving
 detach: false
-#port                : 4000
-#host: 127.0.0.1
 show_dir_listing: false
 url: https://wiki.dhlinux.org
 baseurl: "/" # the subpath of your site, e.g. /blog
-#url: "http://localhost" # the base hostname & protocol for your site, e.g. http://example.com
-#url: "https://wiki.dhlinux.org"
 github_username:  jdmartin
 # Build settings
 theme: "just-the-docs"
