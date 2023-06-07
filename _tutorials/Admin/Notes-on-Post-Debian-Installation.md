@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Post-Debian Installation
-parent: Tutorials and Setup Guides
+parent: Administration
 last_modified_date: 2021-10-28 16:12:00 -0800
 ---
 

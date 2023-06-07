@@ -7,13 +7,13 @@ layout: default
 
 ## Welcome to the DHLinux Wiki!
 
-### Errors Ahead: Pages Currently Undergoing a Revamp - Expected Completion: December 2021
+### Errors Ahead: Pages Currently Undergoing a Revamp - Expected Completion: July 2023
 <br/>
 This Wiki remains a work-in-progress, and is meant to contain and extend the notes from the '[Creating LAMP Infrastructure for DH Projects](https://dhlinux.org/2019Coursepack.pdf)' course given at [DHSI](http://dhsi.org/).
 
-Former participants of the course are welcome, and invited, to get in touch if they have an interest in adding content to these pages.
+[Placeholder text inviting submissions via GitHub]
 
-DHSI
+Tutorials
 ----
 
 -   [Tutorials and Setup Guides](tutorials/Tutorials-and-Setup-Guides/)
@@ -39,5 +39,3 @@ Projects you might try
 ------------------------------------------------------------------------
 
 ###### Debian logo courtesy of [Debian.org](https://www.debian.org/).
-
-###### (Site'll get prettier...)

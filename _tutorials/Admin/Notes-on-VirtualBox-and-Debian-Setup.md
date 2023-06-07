@@ -1,7 +1,7 @@
 ---
 layout: default
 title: VirtualBox and Debian Setup
-parent: Tutorials and Setup Guides
+parent: Admin
 last_modified_date: 2021-10-28 15:58:00 -0800
 ---
 

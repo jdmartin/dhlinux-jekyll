@@ -64,7 +64,7 @@ just_the_docs:
 
 
 
-footer_content: "Connect with Jon on <a href='https://twitter.com/songsthatsaved'>Twitter</a>."
+footer_content: "Connect with Jon on <a href='https://cyberdeck.social/@jon' target='_blank'>Mastodon</a>."
 
 #Github
 gh_edit_link: true # show or hide edit this page link

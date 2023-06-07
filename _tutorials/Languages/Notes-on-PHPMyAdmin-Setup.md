@@ -1,7 +1,8 @@
 ---
 layout: default
 title: PHPMyAdmin Setup
-parent: Tutorials and Setup Guides
+parent: Languages
+nav_order: 2
 last_modified_date: 2021-10-28 16:29:00 -0800
 ---
 

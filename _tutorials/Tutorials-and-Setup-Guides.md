@@ -1,12 +1,12 @@
 ---
 layout: default
-title: Tutorials and Setup Guides
+title: Overview
 nav_order: 1
-has_children: true
+has_children: false
 last_modified_date: 2021-10-28 15:32:00 -0800
 ---
 
-## Tutorials and Setup Guides
+## Overview
 
 This article contains links to the various tutorials and prezi presentations on this site.
 

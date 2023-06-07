@@ -1,6 +1,7 @@
 ---
 layout: default
 title: Cron
+parent: Administration
 last_modified_date: 2021-10-28 15:32:00 -0800
 ---
 
