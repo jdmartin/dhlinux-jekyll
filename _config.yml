@@ -23,9 +23,11 @@ description: Materials for Operating and Securing your Servers and Applications
 #Serving
 detach: false
 show_dir_listing: false
+livereload: true
 url: https://wiki.dhlinux.org
 baseurl: "/" # the subpath of your site, e.g. /blog
 github_username:  jdmartin
+favicon_ico: favicon.ico
 # Build settings
 theme: "just-the-docs"
 plugins:
@@ -51,16 +53,17 @@ collections:
 
 just_the_docs:
   collections:
-    docs:
-      name: Reference
     tutorials:
       name: Tutorials
     projects:
       name: Projects
+    docs:
+      name: Glossary
+    
 
 
 
-footer_content: "Connect with Jon on <a href='https://cyberdeck.social/@jon' target='_blank'>Mastodon</a>."
+footer_content: "Connect with Jon on <a href='https://cyberdeck.social/@jon' target='_blank'>Mastodon</a>.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Debian logo courtesy of <a href='https://www.debian.org/'>Debian.org</a>"
 
 #Github
 gh_edit_link: true # show or hide edit this page link
