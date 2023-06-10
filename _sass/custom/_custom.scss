@@ -1,8 +1,12 @@
 .side-bar {
     background-color: #1c1c1c;
+    width: 20%;
 }
 .site-title {
-    color: #ff9b76;
+    color: #ffbba1;
+}
+.index-title {
+    margin-left: 5%;
 }
 .nav-category {
     color: aqua;
@@ -23,6 +27,9 @@
 .nav-list .nav-list-item .nav-list-expander:hover {
     background-image: none;
 }
+.main-content ul > li::before {
+	color: #000000;
+}
 .site-title:hover {
     background-image: none;
 }
@@ -31,4 +38,15 @@
 }
 .site-footer a {
     color: #ac99f4;
+}
+
+#index-glossary ul {
+    columns: 3; /* Set the number of columns */
+    -webkit-columns: 3; /* For Safari and Chrome */
+    -moz-columns: 3; /* For Firefox */
+}
+
+#index-glossary ul li {
+    display: list-item; /* Ensure each list item is displayed as a block */
+    list-style: disc; /* Style the list marker */
 }

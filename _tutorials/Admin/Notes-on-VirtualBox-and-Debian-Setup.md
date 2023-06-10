@@ -1,9 +1,10 @@
 ---
 layout: default
 title: VirtualBox and Debian Setup
-parent: Tutorials and Setup Guides
-last_modified_date: 2021-10-28 15:58:00 -0800
+parent: Admin
 ---
+<h5>Page Last Updated: {{ page.last_modified_at | date: '%Y %B %d' }}</h5>
+<br>
 
 ## Notes on VirtualBox and Debian Setup
 

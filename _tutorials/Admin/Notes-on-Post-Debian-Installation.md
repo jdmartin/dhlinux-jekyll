@@ -1,9 +1,10 @@
 ---
 layout: default
 title: Post-Debian Installation
-parent: Tutorials and Setup Guides
-last_modified_date: 2021-10-28 16:12:00 -0800
+parent: Administration
 ---
+<h5>Page Last Updated: {{ page.last_modified_at | date: '%Y %B %d' }}</h5>
+<br>
 
 ## Notes on Post-Debian Installation
 

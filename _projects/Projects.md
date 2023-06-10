@@ -2,8 +2,9 @@
 layout: default
 title: Projects
 nav_order: 1
-last_modified_date: 2021-10-28 15:32:00 -0800
 ---
+<h5>Page Last Updated: {{ page.last_modified_at | date: '%Y %B %d' }}</h5>
+<br>
 
 {: .no_toc }
 <details open markdown="block">

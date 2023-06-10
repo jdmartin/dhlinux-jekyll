@@ -19,22 +19,20 @@
 # in the templates via {{ site.myvariable }}.
 
 title: DHLinux Wiki
-description: Materials related to the "Creating LAMP Infrastructure for DH Projects course" at DHSI
+description: Materials for Operating and Securing your Servers and Applications
 #Serving
 detach: false
-#port                : 4000
-#host: 127.0.0.1
 show_dir_listing: false
+livereload: true
 url: https://wiki.dhlinux.org
 baseurl: "/" # the subpath of your site, e.g. /blog
-#url: "http://localhost" # the base hostname & protocol for your site, e.g. http://example.com
-#url: "https://wiki.dhlinux.org"
-twitter_username: songsthatsaved
 github_username:  jdmartin
+favicon_ico: favicon.ico
 # Build settings
 theme: "just-the-docs"
 plugins:
   - jekyll-feed
+  - jekyll-last-modified-at
   - jekyll-sitemap
 
 # Back to top link
@@ -55,16 +53,17 @@ collections:
 
 just_the_docs:
   collections:
-    docs:
-      name: Reference
     tutorials:
       name: Tutorials
     projects:
       name: Projects
+    docs:
+      name: Glossary
+    
 
 
 
-footer_content: "Connect with Jon on <a href='https://twitter.com/songsthatsaved'>Twitter</a>."
+footer_content: "Connect with Jon on <a href='https://cyberdeck.social/@jon' target='_blank'>Mastodon</a>.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Debian logo courtesy of <a href='https://www.debian.org/'>Debian.org</a>"
 
 #Github
 gh_edit_link: true # show or hide edit this page link
@@ -75,9 +74,10 @@ gh_edit_branch: "main" # the branch that your docs is served from
 gh_edit_view_mode: "tree" # "tree" or "edit" if you want the user to jump into the editor immediately
 
 # Footer last edited timestamp
-last_edit_timestamp: true # show or hide edit time - page must have `last_modified_date` defined in the frontmatter
-last_edit_time_format: "%b %e %Y at %I:%M %p" # uses ruby's time format: https://ruby-doc.org/stdlib-2.7.0/libdoc/time/rdoc/Time.html
-
+#last_edit_timestamp: true # show or hide edit time - page must have `last_modified_date` defined in the frontmatter
+#last_edit_time_format: "%b %e %Y at %I:%M %p" # uses ruby's time format: https://ruby-doc.org/stdlib-2.7.0/libdoc/time/rdoc/Time.html
+last-modified-at: 
+    date-format: '%d-%b-%y'
 
 
 # Exclude from processing.
@@ -88,14 +88,16 @@ last_edit_time_format: "%b %e %Y at %I:%M %p" # uses ruby's time format: https:/
 # Excluded items can be processed by explicitly listing the directories or
 # their entries' file path in the `include:` list.
 #
-# exclude:
-#   - .sass-cache/
-#   - .jekyll-cache/
-#   - gemfiles/
-#   - Gemfile
-#   - Gemfile.lock
-#   - node_modules/
-#   - vendor/bundle/
-#   - vendor/cache/
-#   - vendor/gems/
-#   - vendor/ruby/
+exclude:
+  - .sass-cache/
+  - .jekyll-cache/
+  - gemfiles/
+  - Gemfile
+  - Gemfile.lock
+  - node_modules/
+  - vendor/bundle/
+  - vendor/cache/
+  - vendor/gems/
+  - vendor/ruby/
+  - build-dev.sh
+  - build-prod.sh

@@ -1,8 +1,10 @@
 ---
 layout: default
 title: Cron
-last_modified_date: 2021-10-28 15:32:00 -0800
+parent: Administration
 ---
+<h5>Page Last Updated: {{ page.last_modified_at | date: '%Y %B %d' }}</h5>
+<br>
 
 ## Cron
 
