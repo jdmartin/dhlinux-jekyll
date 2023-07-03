@@ -26,7 +26,6 @@ Here's a sample crontab file from my server:
 
     # m h  dom mon dow   command
     01 03 * * *  /opt/spamtraining.sh > /var/log/sa-learn.log 2>&1
-    30 03 * * *  mysqldump --all-databases > /var/backups/mysql/dump-$( date '+\%Y-\%m-\%d_\%H-\%M-\%S' ).sql -u x '-pXXX' #user/pass removed for this example.
     40 03 * * *  find /var/backups/mysql/* -mtime +7 -exec rm {} \;
     01 04 * * *  /opt/expireoldspam.sh
     45 04 * * 0,3  /opt/mc_back.sh
