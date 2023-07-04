@@ -1,0 +1,653 @@
+{"0": {
+    "doc": "Administration",
+    "title": "Administration",
+    "content": " ",
+    "url": "/tutorials/Admin/Admin/",
+    
+    "relUrl": "/tutorials/Admin/Admin/"
+  },"1": {
+    "doc": "Cron",
+    "title": "Cron",
+    "content": "The Cron daemon allows you to schedule programs to run at regular intervals. This can be useful for backing up, checking uptime, or any number of things. Options are stored in your crontab file. To view the contents of your crontab, enter: . crontab -l #N.B. You can also view root's crontab: sudo crontab -l . Yours is likely empty save for some comments on cron usage. To edit that file: . crontab -e #Again, you can edit root's with: sudo crontab -e . Here’s a sample crontab file from my server: . # m h dom mon dow command 01 03 * * * /opt/spamtraining.sh &gt; /var/log/sa-learn.log 2&gt;&amp;1 40 03 * * * find /var/backups/mysql/* -mtime +7 -exec rm {} \\; 01 04 * * * /opt/expireoldspam.sh 45 04 * * 0,3 /opt/mc_back.sh 15 05 * * 0,3 find /var/games/backups/* -mtime +5 -exec rm {} \\; . It’s important to note that time in crontab is given in the format minute, hour, day of month, month, day of week. You can supply numbers or wildcards (*) for all of these. | Day of week is a little unusual, in that the options are 0-7. This is because both 0 and 7 are both recognized as Sunday. | Note, you can also have multiple selections for any of these options (as in the last two lines of the example above). Simply separate your choices by a comma. | . Given all that, let’s break down one line from the above: . 01 04 * * * /opt/expireoldspam.sh . This executes a script “expireoldspam.sh” at 04:01 on every day of every month. (Yes, it is redundant to have every day and every day of the week selected. Regardless, Cron wants you to supply all five options. You can also say something like 01 04 * * 2 which will execute only on Tuesdays at 04:01.) . ",
+    "url": "/tutorials/Admin/Cron/#cron",
+    
+    "relUrl": "/tutorials/Admin/Cron/#cron"
+  },"2": {
+    "doc": "Cron",
+    "title": "See also:",
+    "content": ". | Digital Ocean’s Guide on Cron | Crontab Guru - For easy scheduling | . ",
+    "url": "/tutorials/Admin/Cron/#see-also",
+    
+    "relUrl": "/tutorials/Admin/Cron/#see-also"
+  },"3": {
+    "doc": "Cron",
+    "title": "Cron",
+    "content": "Page Last Updated: 2023 July 03 . ",
+    "url": "/tutorials/Admin/Cron/",
+    
+    "relUrl": "/tutorials/Admin/Cron/"
+  },"4": {
+    "doc": "Post-Debian Installation",
+    "title": "Notes on Post-Debian Installation",
+    "content": "Some things to do shortly after installing Debian: . ",
+    "url": "/tutorials/Admin/Notes-on-Post-Debian-Installation/#notes-on-post-debian-installation",
+    
+    "relUrl": "/tutorials/Admin/Notes-on-Post-Debian-Installation/#notes-on-post-debian-installation"
+  },"5": {
+    "doc": "Post-Debian Installation",
+    "title": "Securing",
+    "content": "First 5 Minutes . | Make sure you’re up-to-date and that your box is starting from a clean installation by running the following: | . su (to become root) apt-get update &amp;&amp; apt-get upgrade . | We don’t want to remain root if it can be avoided, so let’s install the useful sudo tool. Here’s how: | . su (if not already root) apt-get install sudo adduser {your username here} sudo exit su - {your username here} . Congrats! Your user account now has the ability to issue sudo commands as needed. Firewall: . There are two options: For the simplest firewall, . | From within GNOME, open the Synaptic Package Manager by heading to Activities and searching for it. | Find gufw, and mark it for installation. | Choose Apply | Once done, you can close Synaptic. | . | Once installed, enter ‘sudo gufw’ into your terminal’ | Unlock gufw, enable it, and make sure all incoming is blocked. All outgoing may be allowed. | At this point, you may add any ports you might need by clicking the + at the bottom. (e.g. 80 for HTTP traffic, 443 for HTTPS, etc.) (Hint: You can switch from ‘Application’ to ‘Service’ to make a generic rule for a given port…) | . For a more hands-on method (and one that allows deeper Fail2ban integration, I recommend using an iptables-based firewall. (Details on setting that up are here: iptables) . ",
+    "url": "/tutorials/Admin/Notes-on-Post-Debian-Installation/#securing",
+    
+    "relUrl": "/tutorials/Admin/Notes-on-Post-Debian-Installation/#securing"
+  },"6": {
+    "doc": "Post-Debian Installation",
+    "title": "Intrusion Detection and Mitigation",
+    "content": "Install Fail2ban . Fail2ban is a wonderful tool that automatically parses your logs and prevents malicious servers and humans from accessing your server. Installation is very simple: . sudo apt-get install fail2ban . We’ll look at some customization options in the article on Fail2ban. | Useful Guide for Debian 7… still works! | . Securing SSH . Unless you have a strong desire to have your server broken into, you’re going to access your server via SSH/SFTP. With some basic steps, we can make sure that this process is so secure that even the NSA will weep bitter tears. By default, password authentication is used to connect to your server via SSH. A cryptographic key-pair is more secure because a private key takes the place of a password, which is generally much more difficult to brute-force. In this section we’ll create a key-pair and configure the server to not accept passwords for SSH logins. Create an Authentication Key-pair . I recommend following the instructions in this guide for creating and uploading your key-pair. Just replace the word “Linode” with “server” when you read it. ;) . Editing the SSH Daemon Configuration . Now that our keys are safely uploaded, let’s open up the configuration file for the SSH daemon: . sudo nano /etc/ssh/sshd_config . There are a lot of options here. I’m going to ignore a bunch, but here are the things that I change: . Include /etc/ssh/sshd_config.d/*.conf # What ports, IPs and protocols we listen for Port 22 # Use these options to restrict which protocols sshd will use Protocol 2 # Supported HostKey algorithms by order of preference. HostKey /etc/ssh/ssh_host_ed25519_key #HostKey /etc/ssh/ssh_host_rsa_key #HostKey /etc/ssh/ssh_host_ecdsa_key KexAlgorithms curve25519-sha256@libssh.org Ciphers chacha20-poly1305@openssh.com,aes256-gcm@openssh.com,aes128-gcm@openssh.com,aes256-ctr,aes192-ctr,aes128-ctr MACs hmac-sha2-512-etm@openssh.com,hmac-sha2-256-etm@openssh.com,umac-128-etm@openssh.com AllowUsers alice bob charlie (**just replace these with the users on your system that need access**) #AddressFamily inet KbdInteractiveAuthentication no # Lifetime and size of ephemeral version 1 server key #KeyRegenerationInterval 3600 #ServerKeyBits 4096 #UseRoaming no # Logging SyslogFacility AUTH LogLevel INFO # Authentication: LoginGraceTime 30 PermitRootLogin prohibit-password (**or set to no**) StrictModes yes #RSAAuthentication yes PubkeyAuthentication yes AuthorizedKeysFile .ssh/authorized_keys # Don't read the user's ~/.rhosts and ~/.shosts files IgnoreRhosts yes # For this to work you will also need host keys in /etc/ssh_known_hosts #RhostsRSAAuthentication no # similar for protocol version 2 HostbasedAuthentication no # Uncomment if you don't trust ~/.ssh/known_hosts for RhostsRSAAuthentication #IgnoreUserKnownHosts yes # To enable empty passwords, change to yes (NOT RECOMMENDED) PermitEmptyPasswords no # Change to yes to enable challenge-response passwords (beware issues with some PAM modules and threads) ChallengeResponseAuthentication no # Change to no to disable tunnelled clear text passwords PasswordAuthentication no # Kerberos options KerberosAuthentication no #KerberosGetAFSToken no #KerberosOrLocalPasswd yes #KerberosTicketCleanup yes # GSSAPI options GSSAPIAuthentication no #GSSAPICleanupCredentials yes X11Forwarding no X11DisplayOffset 10 PrintMotd yes PrintLastLog no TCPKeepAlive no ClientAliveInterval 60 ClientAliveCountMax 5 AllowTcpForwarding no MaxAuthTries 3 MaxSessions 8 PermitUserRC no PermitUserEnvironment no UseDNS no #Compression no #UseLogin no #KeepAlive yes #MaxStartups 10:30:60 #Banner /etc/issue.net # Allow client to pass locale environment variables #AcceptEnv LANG LC_* # Set this to 'yes' to enable PAM authentication, account processing, # and session processing. If this is enabled, PAM authentication will # be allowed through the ChallengeResponseAuthentication and # PasswordAuthentication. Depending on your PAM configuration, # PAM authentication via ChallengeResponseAuthentication may bypass # the setting of \"PermitRootLogin without-password\". # If you just want the PAM account and session checks to run without # PAM authentication, then enable this but set PasswordAuthentication # and ChallengeResponseAuthentication to 'no'. UsePAM no AcceptEnv LANG LC_* # override default of no subsystems Subsystem sftp /usr/lib/openssh/sftp-server . Ok, cool. It’s time to restart SSH and see that everything works. Please note that your current session shouldn’t disconnect. In fact, you should try logging in again in a separate tab, rather than exiting and re-entering. This helps to avoid being locked out in the event that something went awry. ;) So, with that in mind: . sudo systemctl restart sshd . Now, can we login in a new tab? If it works, we’ll get a message about accepting keys (possibly). Hopefully, you’re now looking at: . $ . ",
+    "url": "/tutorials/Admin/Notes-on-Post-Debian-Installation/#intrusion-detection-and-mitigation",
+    
+    "relUrl": "/tutorials/Admin/Notes-on-Post-Debian-Installation/#intrusion-detection-and-mitigation"
+  },"7": {
+    "doc": "Post-Debian Installation",
+    "title": "Package Management",
+    "content": ". | You should make a point of using ‘sudo apt-get update &amp;&amp; sudo apt-get upgrade’ at least once a day. This will ensure your box is safe and up-to-date. | . That said, you may want to look into running the unattended-upgrades package. As the name would suggest, this automates the process of updating your machine. To do this: . | . | apt-get install unattended-upgrades | . | . With that accomplished, it’s time to edit another file: . | . | nano /etc/apt/apt.conf.d/50unattended-upgrades | . | . You’re free to edit this file as suits your needs. (You may want it to e-mail you the results, for instance.) The key bit is: . Unattended-Upgrade::Origins-Pattern { // Codename based matching: // This will follow the migration of a release through different // archives (e.g. from testing to stable and later oldstable). // \"origin=Debian,codename=${distro_codename}-updates\"; // \"origin=Debian,codename=${distro_codename}-proposed-updates\"; \"origin=Debian,codename=${distro_codename},label=Debian\"; \"origin=Debian,codename=${distro_codename},label=Debian-Security\"; \"origin=Debian,codename=${distro_codename}-security,label=Debian-Security\"; . The above will ensure that all of your stable packages are up-to-date, and that any security patches are installed. You may have good reason to wait on stable packages, but consider whether there’s a benefit to delaying security patches. Also, look through the rest of that file to find options to handle automatic reboots or reloads! . ",
+    "url": "/tutorials/Admin/Notes-on-Post-Debian-Installation/#package-management",
+    
+    "relUrl": "/tutorials/Admin/Notes-on-Post-Debian-Installation/#package-management"
+  },"8": {
+    "doc": "Post-Debian Installation",
+    "title": "External Links",
+    "content": ". | Things to do after installing Debian Jessie | Notes on using APT | Notes on Checkrestart and Needrestart | Scheduling tasks with crontab | Linode Guide to SysAdmin Basics | How to Use Wget and Curl to download files | Using tar to (de)compress files | . ",
+    "url": "/tutorials/Admin/Notes-on-Post-Debian-Installation/#external-links",
+    
+    "relUrl": "/tutorials/Admin/Notes-on-Post-Debian-Installation/#external-links"
+  },"9": {
+    "doc": "Post-Debian Installation",
+    "title": "Post-Debian Installation",
+    "content": "Page Last Updated: 2023 July 03 . ",
+    "url": "/tutorials/Admin/Notes-on-Post-Debian-Installation/",
+    
+    "relUrl": "/tutorials/Admin/Notes-on-Post-Debian-Installation/"
+  },"10": {
+    "doc": "VirtualBox and Debian Setup",
+    "title": "Notes on VirtualBox and Debian Setup",
+    "content": "Installing / Updating: . VirtualBox: https://www.virtualbox.org/wiki/Downloads . Make sure to grab the Extension Pack, too! . Debian: Download the latest stable (For 64-bit computers, get the amd64.  For 32-bit, i386.) . Just grab the .iso for DVD1. It should have everything you need, and anything else can be pulled down from inside Debian. ",
+    "url": "/tutorials/Admin/Notes-on-VirtualBox-and-Debian-Setup/#notes-on-virtualbox-and-debian-setup",
+    
+    "relUrl": "/tutorials/Admin/Notes-on-VirtualBox-and-Debian-Setup/#notes-on-virtualbox-and-debian-setup"
+  },"11": {
+    "doc": "VirtualBox and Debian Setup",
+    "title": "Getting Started:",
+    "content": ". | Install Virtualbox, along with its extension pack, and then open it. | Select New, Give it a name, Select Linux, Other Linux 64-bit. (Other Linux 64 has much better performance than Debian option. WTF?) . | Make sure to choose Other Linux 32-bit, if you’re using a 32-bit machine. | . | Default RAM is ok, but I like 2GB. (I’ve got a 16GB machine.) (Let’s say 1/4 RAM as guideline for cap, but always leave at least 1GB for host OS.) | Create a virtual HD is fine on defaults, but you do have the option to choose formats that might work with Parallels or VMWare. | Size choice is down to preference. | I usually choose ‘dynamic,’ but I have an SSD so speed is less of a problem. | That said, there’s a speed hit on dynamic. So, if you don’t have an SSD, or you feel the need to eke out every yoctosecond (10-24), choose fixed. | . | Size limit is 8GB by default. I expanded to 12GB. Go for at least 8. | . | . ",
+    "url": "/tutorials/Admin/Notes-on-VirtualBox-and-Debian-Setup/#getting-started",
+    
+    "relUrl": "/tutorials/Admin/Notes-on-VirtualBox-and-Debian-Setup/#getting-started"
+  },"12": {
+    "doc": "VirtualBox and Debian Setup",
+    "title": "Setting up the VirtualBox environment",
+    "content": ". | Single-click your new Linux install in Virtualbox, and then click Settings. | Add a processor at some point (Settings / System / Processor) - Let’s say “half” available, with two at a minimum. | Add video memory (Settings / Display) if planning to use GUI (max it) | Check in (Settings / network / advanced settings) to ensure you are using the Paravirtualized Network (virtio-net) otherwise VirtualBox will be emulating the hardware, which makes both molasses and turtles seem speedy. | Click OK once you’re done with making changes to Settings. | . ",
+    "url": "/tutorials/Admin/Notes-on-VirtualBox-and-Debian-Setup/#setting-up-the-virtualbox-environment",
+    
+    "relUrl": "/tutorials/Admin/Notes-on-VirtualBox-and-Debian-Setup/#setting-up-the-virtualbox-environment"
+  },"13": {
+    "doc": "VirtualBox and Debian Setup",
+    "title": "Setting up Debian",
+    "content": ". | Single-click select your Linux machine in Virtualbox, and click Start. | On select virtual HD, browse for the Debian iso, then press start. | Choose Install for the traditional method (that’s what I’ll follow here.) . | Pick your language (I’ll be proceeding in English) Note: Pressing enter during this process will automatically choose and advance. If a screen has multiple options, use space to toggle | Set your location | Set your keyboard | Set a hostname. For this course, I’m choosing “dhsi” (N.B. Ignore the quotation marks in this instruction sheet, unless I tell you not to.) | For your domain, you can leave it blank (if it’s a workstation and not a server). For this course, I’m choosing “dhsi.dev” (We’ll set that up later…) | Now, the root user. You should use a password manager to generate a strong password. However, in this course, every password is “dhsi” (Shh, don’t tell anyone…) . | After root, create a user called “dhsi” with a password “dhsi” | . | Pick a time zone | For the disk partition, we’ll use the “Guided - use entire disk” option. If you want disk encryption, it’s “Guided - use entire disk and set up encrypted LVM.” Keep it simple, for now, and we’ll talk. | Choose the only disk available. ;) | All files in one partition. | Finish and write changes. (It’ll ask you to confirm. Do so.) | . | No need to scan another CD or DVD, so choose “no.” | Yes, use a mirror for packages. Pick whatever’s closest to you. (At home, I use MIT’s csail) . | No need for a proxy. | . | The survey is up to you. It’s anonymous (for reals), and just indicates what packages are used on what kind of hardware. | Use space on the services page: Add GNOME (if you desire a graphical desktop, you can run without, but it’s easier for our class), remove Printer, add ssh server, hit enter | Install the GRUB boot loader. | Choose /dev/sda | . | Hit continue | . | . ",
+    "url": "/tutorials/Admin/Notes-on-VirtualBox-and-Debian-Setup/#setting-up-debian",
+    
+    "relUrl": "/tutorials/Admin/Notes-on-VirtualBox-and-Debian-Setup/#setting-up-debian"
+  },"14": {
+    "doc": "VirtualBox and Debian Setup",
+    "title": "Your first boot",
+    "content": ". | Login to your desktop | Click activities, and type “terminal” into the search box. (I like to right-click it and add to favorites for easy access later.) . | Open a terminal . | If you’re like me, you like a dark theme. (Edit / Preferences / Use dark theme variant) | . | . | . Ok, now… . Making VirtualBox Less Ugly . | Type ‘su’ and give the root password to become root. | Let’s fix a small thing that could be annoying once we delete / remove that installer .iso . | Type ‘nano /etc/apt/sources.list’ and hit enter | At the start of the line that begins “deb cdrom” insert a ‘#’ so it reads ‘#deb cdrom’ | Press (ctrl + x) and then ‘y’ and enter to save and exit. | . | Ok, now let’s get ready to make things less ugly by running this: apt-get install build-essential module-assistant . | Confirm and watch many lines appear from the aether. | . | Still as root: m-a prepare . | Confirm and see even more lines scroll by at ludicrous speed! | . | Now, in Virtualbox, click Devices &gt; Install Guest Additions in virtualbox window to mount the guest addition image. (Mounts to /media/cdrom0) . | Choose ‘Cancel’ when a box pops up in GNOME. | . | Back in the terminal, run ‘sh /media/cdrom0/VBoxLinuxAdditions.run’ (If this won’t work, Reboot, because VirtualBox reasons, and then try again.) | . Now, reboot (in terminal: ‘reboot’, or click the triangle in the top right of GNOME and choose ‘Restart’ from the power icon.) . | Hopefully enjoy a nicer desktop. (Just drag the virtualbox window to resize it. The desktop should fill the available space.) | . ",
+    "url": "/tutorials/Admin/Notes-on-VirtualBox-and-Debian-Setup/#your-first-boot",
+    
+    "relUrl": "/tutorials/Admin/Notes-on-VirtualBox-and-Debian-Setup/#your-first-boot"
+  },"15": {
+    "doc": "VirtualBox and Debian Setup",
+    "title": "VirtualBox and Debian Setup",
+    "content": "Page Last Updated: 2023 June 07 . ",
+    "url": "/tutorials/Admin/Notes-on-VirtualBox-and-Debian-Setup/",
+    
+    "relUrl": "/tutorials/Admin/Notes-on-VirtualBox-and-Debian-Setup/"
+  },"16": {
+    "doc": "Databases",
+    "title": "Databases",
+    "content": " ",
+    "url": "/tutorials/Databases/Databases/",
+    
+    "relUrl": "/tutorials/Databases/Databases/"
+  },"17": {
+    "doc": "MariaDB/MySQL Setup",
+    "title": "Notes on MariaDB Setup",
+    "content": " ",
+    "url": "/tutorials/Databases/Notes-on-MariaDB-Setup/#notes-on-mariadb-setup",
+    
+    "relUrl": "/tutorials/Databases/Notes-on-MariaDB-Setup/#notes-on-mariadb-setup"
+  },"18": {
+    "doc": "MariaDB/MySQL Setup",
+    "title": "Installing MariaDB",
+    "content": ". | sudo apt-get update | sudo apt-get install mariadb-server | cp /etc/mysql/my.cnf ~/my.cnf.backup (Always good to have a backup of the base config… just in case!) | . ",
+    "url": "/tutorials/Databases/Notes-on-MariaDB-Setup/#installing-mariadb",
+    
+    "relUrl": "/tutorials/Databases/Notes-on-MariaDB-Setup/#installing-mariadb"
+  },"19": {
+    "doc": "MariaDB/MySQL Setup",
+    "title": "Configure MariaDB and Setup MariaDB Databases",
+    "content": "After installing MySQL, it’s recommended that you run mysql_secure_installation, a program that helps secure MySQL. While running mysql_secure_installation, you will be presented with the opportunity to change the MySQL root password, remove anonymous user accounts, disable root logins outside of localhost, and remove test databases. It is recommended that you answer “yes” to these options. If you are prompted to reload the privilege tables, select “yes.” Run the following command to execute the program: . | sudo mysql_secure_installation | . Next, you can create a database and grant your users permissions to use databases. First, log in to MariaDB: . | mysql -u root -p | . Enter MariaDB’s root password, and you’ll be presented with a prompt where you can issue SQL statements to interact with the database. To create a database and grant your users permissions on it, issue the following command. Note that the semicolons (;) at the end of the lines are crucial for ending the commands. Your command should look like this: . create database testdb; grant all on testdb.* to 'test_user' identified by 'test'; . In the example above, dhsi is the name of the database, dhsi_user is the username, and dhsi is the password. This is not a good password. This is for testing, and you should remove this account when you’re sure everything works! . A better version might be: . create database testdb; GRANT ALL PRIVILEGES ON testdb.* TO 'test_user'@'localhost' IDENTIFIED BY '9d63c3b5b7623d1fa3dc7fd1547313b9546c6d0fbbb6773a420613b7a17995c8'; . In this, we have created a password by passing a text string “This is a test” to shasum: . echo \"This is a test\" | shasum -a 256 . Note: It’s helpful to put a space before the command so that it’s not logged in history. You could also use a tool like this one from Bitwarden or Use a Passphrase to generate a password for you. Also note that database usernames and passwords are only used by scripts connecting to the database, and that database user account names need not (and perhaps should not) represent actual user accounts on the system. With that completed, you’ve successfully configured MariaDB, and you may now pass these database credentials on to your users or applications. To exit the MariaDB database administration utility issue the following command: . | quit | . ",
+    "url": "/tutorials/Databases/Notes-on-MariaDB-Setup/#configure-mariadb-and-setup-mariadb-databases",
+    
+    "relUrl": "/tutorials/Databases/Notes-on-MariaDB-Setup/#configure-mariadb-and-setup-mariadb-databases"
+  },"20": {
+    "doc": "MariaDB/MySQL Setup",
+    "title": "Next Steps",
+    "content": "With Apache and MariaDB installed, let’s install PHP: Notes on PHP Setup . ",
+    "url": "/tutorials/Databases/Notes-on-MariaDB-Setup/#next-steps",
+    
+    "relUrl": "/tutorials/Databases/Notes-on-MariaDB-Setup/#next-steps"
+  },"21": {
+    "doc": "MariaDB/MySQL Setup",
+    "title": "MariaDB/MySQL Setup",
+    "content": "Page Last Updated: 2023 July 03 . ",
+    "url": "/tutorials/Databases/Notes-on-MariaDB-Setup/",
+    
+    "relUrl": "/tutorials/Databases/Notes-on-MariaDB-Setup/"
+  },"22": {
+    "doc": "Languages",
+    "title": "Languages",
+    "content": " ",
+    "url": "/tutorials/Languages/Languages/",
+    
+    "relUrl": "/tutorials/Languages/Languages/"
+  },"23": {
+    "doc": "PHP Setup",
+    "title": "Notes on PHP Setup",
+    "content": " ",
+    "url": "/tutorials/Languages/Notes-on-PHP-Setup/#notes-on-php-setup",
+    
+    "relUrl": "/tutorials/Languages/Notes-on-PHP-Setup/#notes-on-php-setup"
+  },"24": {
+    "doc": "PHP Setup",
+    "title": "First Step",
+    "content": "Let’s get PHP installed: . | sudo apt-get install php8.2 php-pear | . ",
+    "url": "/tutorials/Languages/Notes-on-PHP-Setup/#first-step",
+    
+    "relUrl": "/tutorials/Languages/Notes-on-PHP-Setup/#first-step"
+  },"25": {
+    "doc": "PHP Setup",
+    "title": "Configuring PHP",
+    "content": "Let’s use ‘sudo nano’ to take a look in /etc/php/8.2/apache2/php.ini . N.B. If you’re using this with nginx, or something else, you may want to edit /etc/php/8.2/fpm/php.ini or /etc/php/8.2/cli/php.ini instead. We want to find and ensure that the following configuration defaults are correctly installed: . max_execution_time = 30 memory_limit = 128M display_errors = Off  log_errors = On error_log = /var/log/php/error.log register_globals = Off &lt;-- May not exist.  That's a good thing. You will need to create the log directory for PHP and give the Apache user ownership: . | sudo mkdir /var/log/php | sudo chown www-data /var/log/php | . ",
+    "url": "/tutorials/Languages/Notes-on-PHP-Setup/#configuring-php",
+    
+    "relUrl": "/tutorials/Languages/Notes-on-PHP-Setup/#configuring-php"
+  },"26": {
+    "doc": "PHP Setup",
+    "title": "Preparing the Environment",
+    "content": "If you need support for MySQL in PHP, then you must install the php5-mysql package with the following command: . | sudo apt-get install php8.2-mysql | . After making changes to the PHP configuration file, restart Apache by issuing the following command: . | sudo service apache2 restart | . ",
+    "url": "/tutorials/Languages/Notes-on-PHP-Setup/#preparing-the-environment",
+    
+    "relUrl": "/tutorials/Languages/Notes-on-PHP-Setup/#preparing-the-environment"
+  },"27": {
+    "doc": "PHP Setup",
+    "title": "Testing the Install",
+    "content": "With this completed, PHP should be fully functional. Create /var/www/test.dev/public_html/index.php (N.B. I’m assuming your hostname is test.dev. Change as needed.) . &lt;?php        echo '&lt;h1&gt;Hello World&lt;/h1&gt;'; ?&gt; . | Use Firefox to load http://test/index.php | . ",
+    "url": "/tutorials/Languages/Notes-on-PHP-Setup/#testing-the-install",
+    
+    "relUrl": "/tutorials/Languages/Notes-on-PHP-Setup/#testing-the-install"
+  },"28": {
+    "doc": "PHP Setup",
+    "title": "Using PHP By Default",
+    "content": "Suppose we wanted to change the default index for our site. Here’s how: . | Let’s cd to /var/www/test.conf/public_html | sudo nano .htaccess | DirectoryIndex index.php (Can be whatever) | Save, exit, sudo chown www-data:www-data .htaccess | . | Now, let’s sudo nano /etc/apache2/apache2.conf | Use CTRL+W to find ‘&lt;Directory /var/www’ | Entry should look like: | . &lt;Directory /var/www/&gt; Options Indexes FollowSymLinks MultiViews AllowOverride Indexes Require all granted &lt;/Directory&gt; . | sudo service apache2 reload | Use Firefox to visit http://test | Now, use Firefox to visit http://test/index.html | . Ta-da! . ",
+    "url": "/tutorials/Languages/Notes-on-PHP-Setup/#using-php-by-default",
+    
+    "relUrl": "/tutorials/Languages/Notes-on-PHP-Setup/#using-php-by-default"
+  },"29": {
+    "doc": "PHP Setup",
+    "title": "PHP Setup",
+    "content": "Page Last Updated: 2023 July 03 . ",
+    "url": "/tutorials/Languages/Notes-on-PHP-Setup/",
+    
+    "relUrl": "/tutorials/Languages/Notes-on-PHP-Setup/"
+  },"30": {
+    "doc": "PHPMyAdmin Setup",
+    "title": "Notes on PHPMyAdmin Setup",
+    "content": " ",
+    "url": "/tutorials/Languages/Notes-on-PHPMyAdmin-Setup/#notes-on-phpmyadmin-setup",
+    
+    "relUrl": "/tutorials/Languages/Notes-on-PHPMyAdmin-Setup/#notes-on-phpmyadmin-setup"
+  },"31": {
+    "doc": "PHPMyAdmin Setup",
+    "title": "Installing phpMyAdmin",
+    "content": "Installing phpMyAdmin is a very simple process. Just: . | sudo apt-get install phpmyadmin | . ",
+    "url": "/tutorials/Languages/Notes-on-PHPMyAdmin-Setup/#installing-phpmyadmin",
+    
+    "relUrl": "/tutorials/Languages/Notes-on-PHPMyAdmin-Setup/#installing-phpmyadmin"
+  },"32": {
+    "doc": "PHPMyAdmin Setup",
+    "title": "Securing Our Installation",
+    "content": "Unfortunately, older versions of phpMyAdmin have had serious security vulnerabilities, including allowing remote users to eventually exploit root on the underlying virtual private server. One can prevent a majority of these attacks through a simple process: locking down the entire directory with Apache’s native user/password restrictions which will prevent these remote users from even attempting to exploit older versions of phpMyAdmin. Set Up the .htaccess File . To set this up, start off by allowing the .htaccess file to work within the phpmyadmin directory. You can accomplish this in the phpmyadmin configuration file: . | sudo nano /etc/phpmyadmin/apache.conf | . Under the directory section, add the line “AllowOverride All” under “Directory Index”, making the section look like this: . &lt;Directory /usr/share/phpmyadmin&gt;         Options FollowSymLinks         DirectoryIndex index.php         AllowOverride All         [...] . Configure the .htaccess file . With the .htaccess file allowed, we can proceed to set up a native user whose login would be required to even access the phpmyadmin login page. Start by creating the .htaccess page in the phpmyadmin directory: . | sudo nano /usr/share/phpmyadmin/.htaccess | . Follow up by setting up the user authorization within .htaccess file. Copy and paste the following text in: . AuthType Basic AuthName \"Restricted Files\" AuthUserFile /etc/.htpasswd Require valid-user . AuthType: This refers to the type of authentication that will be used to the check the passwords. The passwords are checked via HTTP and the keyword Basic should not be changed. AuthName: This is text that will be displayed at the password prompt. You can put anything here. AuthUserFile: This line designates the server path to the password file (which we will create in the next step.) . Require valid-user: This line tells the .htaccess file that only users defined in the password file can access the phpMyAdmin login screen. Create the htpasswd file . Now we will go ahead and create the valid user information. Creating the .htpasswd file . We use the htpasswd command, and place the file in a directory of your choice as long as it is not accessible from a browser. Although you can name the password file whatever you prefer (I’m using /etc/.htpasswd), the convention is to name it .htpasswd. | sudo htpasswd -c /path/to/passwords/.htpasswd username | . A prompt will ask you to provide and confirm your password. Once the username and passwords pair are saved you can see that the password is encrypted in the file by using cat to view it. Finish up by restarting apache: . | sudo service apache2 restart | . ",
+    "url": "/tutorials/Languages/Notes-on-PHPMyAdmin-Setup/#securing-our-installation",
+    
+    "relUrl": "/tutorials/Languages/Notes-on-PHPMyAdmin-Setup/#securing-our-installation"
+  },"33": {
+    "doc": "PHPMyAdmin Setup",
+    "title": "Accessing phpMyAdmin",
+    "content": "phpMyAdmin will now be much more secure since only authorized users will be able to reach the login page. Accessing ‘youripaddress/phpmyadmin’ in iceweasel should display a login screen. The user/pass are the ones you just created in the .htpasswd file. Fill it in with the username and password that you generated. After you login you can access phpMyAdmin with the MariaDB username and password of your choice. (N.B. You’ll probably need root, or a similar super-user, to create/delete databases.) . ",
+    "url": "/tutorials/Languages/Notes-on-PHPMyAdmin-Setup/#accessing-phpmyadmin",
+    
+    "relUrl": "/tutorials/Languages/Notes-on-PHPMyAdmin-Setup/#accessing-phpmyadmin"
+  },"34": {
+    "doc": "PHPMyAdmin Setup",
+    "title": "PHPMyAdmin Setup",
+    "content": "Page Last Updated: 2023 June 07 . ",
+    "url": "/tutorials/Languages/Notes-on-PHPMyAdmin-Setup/",
+    
+    "relUrl": "/tutorials/Languages/Notes-on-PHPMyAdmin-Setup/"
+  },"35": {
+    "doc": "Fail2ban",
+    "title": "Fail2ban",
+    "content": "Detailed Entry Coming soon! . In the meantime, here is a good overview, and here are some notes on using Fail2ban to secure SSH. ",
+    "url": "/tutorials/Server%20Security/Fail2ban/#fail2ban",
+    
+    "relUrl": "/tutorials/Server%20Security/Fail2ban/#fail2ban"
+  },"36": {
+    "doc": "Fail2ban",
+    "title": "Fail2ban",
+    "content": "Page Last Updated: 2023 July 03 . ",
+    "url": "/tutorials/Server%20Security/Fail2ban/",
+    
+    "relUrl": "/tutorials/Server%20Security/Fail2ban/"
+  },"37": {
+    "doc": "Iptables",
+    "title": "Iptables",
+    "content": "(N.B. You might be on a newer system that requires nftables, click on nftables on the left-hand menu to see how to handle this.) . iptables is used for packet filtering and NAT, and is a standard part of modern Linux firewalling. It is an alternative to UFW and PF, which do the same work in different ways. Let’s look at how to get started. ",
+    "url": "/tutorials/Server%20Security/Iptables/#iptables",
+    
+    "relUrl": "/tutorials/Server%20Security/Iptables/#iptables"
+  },"38": {
+    "doc": "Iptables",
+    "title": "Installation",
+    "content": "iptables comes in both ipv4 and ipv6 flavors. Let’s begin with ipv4. The tools necessary to create a firewall with iptables are already installed on your Debian box. So, begin by creating a file to house your rules. sudo touch /etc/iptables.rules . ",
+    "url": "/tutorials/Server%20Security/Iptables/#installation",
+    
+    "relUrl": "/tutorials/Server%20Security/Iptables/#installation"
+  },"39": {
+    "doc": "Iptables",
+    "title": "Using iptables",
+    "content": "While iptables rules can be added and removed from the command line (more on that here), it’s often easier to keep your ruleset in a file that can be loaded as needed. So, let’s open the file you just created: . sudo nano /etc/iptables.rules . Here’s mine for reference. Use the comments to decide what rules are useful to you. Your needs/ports may vary, but here’s some of what I use for speed and security. *filter :INPUT DROP [0:0] :FORWARD DROP [0:0] :OUTPUT ACCEPT [86:13587] :ICMP_IN - [0:0] :TCP - [0:0] :UDP - [0:0] -A INPUT -m conntrack --ctstate RELATED,ESTABLISHED -j ACCEPT -A INPUT -i lo -j ACCEPT -A INPUT -d 127.0.0.0/8 ! -i lo -j REJECT --reject-with icmp-port-unreachable -A INPUT -p tcp -m tcp --tcp-flags FIN,SYN,RST,ACK SYN -m conntrack --ctstate NEW -j TCP -A INPUT -p udp -m conntrack --ctstate NEW -j UDP -A INPUT -p icmp -m conntrack --ctstate NEW -j ICMP_IN -A INPUT -m limit --limit 50/min -j LOG --log-prefix \"iptables denied: \" --log-level 7 -A OUTPUT -o eth0 -p icmp -m icmp --icmp-type 8 -m conntrack --ctstate NEW -j ACCEPT -A ICMP_IN -i eth0 -p icmp -m icmp --icmp-type 8 -j DROP -A ICMP_IN -i eth0 -p icmp -m icmp --icmp-type 0 -m conntrack --ctstate RELATED,ESTABLISHED -j ACCEPT -A ICMP_IN -i eth0 -p icmp -m icmp --icmp-type 3 -m conntrack --ctstate RELATED,ESTABLISHED -j ACCEPT -A ICMP_IN -i eth0 -p icmp -m icmp --icmp-type 11 -m conntrack --ctstate RELATED,ESTABLISHED -j ACCEPT -A ICMP_IN -p icmp -m limit --limit 6/sec --limit-burst 1 -j ACCEPT -A ICMP_IN -p icmp -j LOG --log-prefix \"ICMP denied: \" --log-level 7 -A ICMP_IN -p icmp -j REJECT --reject-with icmp-proto-unreachable -A TCP -p tcp --dport 22 -m comment --comment SSH -j ACCEPT -A TCP -p tcp -m multiport --dports 80,443 -m comment --comment Web -j ACCEPT -A TCP -p tcp -m multiport --dports 25,587,993 -m comment --comment Mail -j ACCEPT -A TCP -p tcp -j LOG --log-prefix \"TCP denied: \" --log-level 7 -A TCP -p tcp -j REJECT --reject-with tcp-reset -A UDP -p udp -j LOG --log-prefix \"UDP denied: \" --log-level 7 -A UDP -p udp -j REJECT --reject-with icmp-port-unreachable COMMIT *mangle :PREROUTING ACCEPT [40:2858] :INPUT ACCEPT [40:2858] :FORWARD ACCEPT [0:0] :OUTPUT ACCEPT [86:13587] :POSTROUTING ACCEPT [86:13587] -A PREROUTING -i eth0 -p tcp -m tcp ! --tcp-flags FIN,SYN,RST,ACK SYN -m conntrack --ctstate NEW -j DROP -A PREROUTING -i eth0 -p tcp -m conntrack --ctstate NEW -m tcpmss ! --mss 536:65535 -j DROP -A PREROUTING -i eth0 -m conntrack --ctstate INVALID -j DROP -A PREROUTING -i eth0 -f -m comment --comment \"Drop Fragments\" -j DROP -A PREROUTING -i eth0 -p tcp -m tcp --tcp-flags FIN,SYN,RST,PSH,ACK,URG NONE -j DROP -A PREROUTING -i eth0 -p tcp -m tcp --tcp-flags FIN,SYN FIN,SYN -j DROP -A PREROUTING -i eth0 -p tcp -m tcp --tcp-flags SYN,RST SYN,RST -j DROP -A PREROUTING -i eth0 -p tcp -m tcp --tcp-flags FIN,RST FIN,RST -j DROP -A PREROUTING -i eth0 -p tcp -m tcp --tcp-flags FIN,ACK FIN -j DROP -A PREROUTING -i eth0 -p tcp -m tcp --tcp-flags ACK,URG URG -j DROP -A PREROUTING -i eth0 -p tcp -m tcp --tcp-flags FIN,ACK FIN -j DROP -A PREROUTING -i eth0 -p tcp -m tcp --tcp-flags PSH,ACK PSH -j DROP -A PREROUTING -i eth0 -p tcp -m tcp --tcp-flags FIN,SYN,RST,PSH,ACK,URG FIN,SYN,RST,PSH,ACK,URG -j DROP -A PREROUTING -i eth0 -p tcp -m tcp --tcp-flags FIN,SYN,RST,PSH,ACK,URG NONE -j DROP -A PREROUTING -i eth0 -p tcp -m tcp --tcp-flags FIN,SYN,RST,PSH,ACK,URG FIN,PSH,URG -j DROP -A PREROUTING -i eth0 -p tcp -m tcp --tcp-flags FIN,SYN,RST,PSH,ACK,URG FIN,SYN,PSH,URG -j DROP -A PREROUTING -i eth0 -p tcp -m tcp --tcp-flags FIN,SYN,RST,PSH,ACK,URG FIN,SYN,RST,ACK,URG -j DROP COMMIT . Once you’ve got your iptables.rules file the way you want it, go ahead and activate those rules: . sudo iptables-restore &lt; /etc/iptables.rules #If you're using fail2ban, you'll need to restart it here: sudo /etc/init.d/fail2ban restart #Then, to confirm that your rules are working: sudo iptables -L -n . ",
+    "url": "/tutorials/Server%20Security/Iptables/#using-iptables",
+    
+    "relUrl": "/tutorials/Server%20Security/Iptables/#using-iptables"
+  },"40": {
+    "doc": "Iptables",
+    "title": "Final Steps",
+    "content": "Of course, these rules aren’t very useful if they aren’t loaded when you reboot your server. Let’s make sure they are by adding a command to load them to your machine’s boot process: . su apt-get install netfilter-persistent . Follow the prompts, and your firewall should reload when you reboot. If this approach doesn’t work, you could try: . su nano /etc/network/if-pre-up.d/firewall . Now, add these lines to your file and save: . #!/bin/sh /sbin/iptables-restore &lt; /etc/iptables.rules . That’s it! . ",
+    "url": "/tutorials/Server%20Security/Iptables/#final-steps",
+    
+    "relUrl": "/tutorials/Server%20Security/Iptables/#final-steps"
+  },"41": {
+    "doc": "Iptables",
+    "title": "See also:",
+    "content": "Guide to setting up ip6tables . ",
+    "url": "/tutorials/Server%20Security/Iptables/#see-also",
+    
+    "relUrl": "/tutorials/Server%20Security/Iptables/#see-also"
+  },"42": {
+    "doc": "Iptables",
+    "title": "Iptables",
+    "content": "Page Last Updated: 2023 July 03 . ",
+    "url": "/tutorials/Server%20Security/Iptables/",
+    
+    "relUrl": "/tutorials/Server%20Security/Iptables/"
+  },"43": {
+    "doc": "Server Security",
+    "title": "Server Security",
+    "content": " ",
+    "url": "/tutorials/Server%20Security/ServerSec/",
+    
+    "relUrl": "/tutorials/Server%20Security/ServerSec/"
+  },"44": {
+    "doc": "Overview",
+    "title": "Overview",
+    "content": "This article contains links to the various tutorials and prezi presentations on this site. ",
+    "url": "/tutorials/Tutorials-and-Setup-Guides/#overview",
+    
+    "relUrl": "/tutorials/Tutorials-and-Setup-Guides/#overview"
+  },"45": {
+    "doc": "Overview",
+    "title": "Installation Tutorials",
+    "content": ". | Notes on VirtualBox and Debian Setup | Notes on Post-Debian Installation | Notes on Apache Setup | Notes on Nginx Setup | Notes on MariaDB Setup | Notes on PHP Setup | Notes on PHPMyAdmin Setup | . ",
+    "url": "/tutorials/Tutorials-and-Setup-Guides/#installation-tutorials",
+    
+    "relUrl": "/tutorials/Tutorials-and-Setup-Guides/#installation-tutorials"
+  },"46": {
+    "doc": "Overview",
+    "title": "Notes on Tools",
+    "content": ". | Cron | iptables (Firewall) | Fail2ban | . ",
+    "url": "/tutorials/Tutorials-and-Setup-Guides/#notes-on-tools",
+    
+    "relUrl": "/tutorials/Tutorials-and-Setup-Guides/#notes-on-tools"
+  },"47": {
+    "doc": "Overview",
+    "title": "Video Tutorials",
+    "content": ". | Installing MAMP | BASH Tutorial - DHSI 2014, Jon Martin | . ",
+    "url": "/tutorials/Tutorials-and-Setup-Guides/#video-tutorials",
+    
+    "relUrl": "/tutorials/Tutorials-and-Setup-Guides/#video-tutorials"
+  },"48": {
+    "doc": "Overview",
+    "title": "Prezis",
+    "content": ". | History of Linux | Using BASH and the Command Line | Installing VirtualBox and Debian Linux | Overview of the Apache Web Server | Overview of the MariaDB Server (Also contains PHPMyAdmin setup) | . ",
+    "url": "/tutorials/Tutorials-and-Setup-Guides/#prezis",
+    
+    "relUrl": "/tutorials/Tutorials-and-Setup-Guides/#prezis"
+  },"49": {
+    "doc": "Overview",
+    "title": "Overview",
+    "content": "Page Last Updated: 2023 June 07 . ",
+    "url": "/tutorials/Tutorials-and-Setup-Guides/",
+    
+    "relUrl": "/tutorials/Tutorials-and-Setup-Guides/"
+  },"50": {
+    "doc": "Apache Setup",
+    "title": "Notes on Apache Setup",
+    "content": " ",
+    "url": "/tutorials/Web/Notes-on-Apache-Setup/#notes-on-apache-setup",
+    
+    "relUrl": "/tutorials/Web/Notes-on-Apache-Setup/#notes-on-apache-setup"
+  },"51": {
+    "doc": "Apache Setup",
+    "title": "First Steps:",
+    "content": "We’ll need something to test with later on. Let’s ‘sudo apt-get install lynx.’ . Lynx is a beautiful old browser. You’ll love it. Unless you’re a graphic designer, in which case it hates you, and you it. | Do apt-get update and upgrade | sudo apt-get install apache2 | A lot of applications use apache’s ‘rewrite’ capability. Let’s make sure that’s on: sudo a2enmod rewrite | Restart in the manner it asks, but use sudo! | . ",
+    "url": "/tutorials/Web/Notes-on-Apache-Setup/#first-steps",
+    
+    "relUrl": "/tutorials/Web/Notes-on-Apache-Setup/#first-steps"
+  },"52": {
+    "doc": "Apache Setup",
+    "title": "Initial Configuration",
+    "content": "Now, we have to setup our hosts file so that our sites are registered properly with Apache (in these examples, I have chosen the hostname test.dev): . | sudo nano /etc/hosts (You should see something like this) 127.0.0.1       localhost 127.0.1.1       test.dev 127.0.1.1       test.test.dev   test . Now, let’s configure that server to play nicely with our machine. | Go ahead and use sudo nano to open /etc/apache2/apache2.conf - This is a file you won’t have permissions to… | Scroll down to the bottom of the file. Add a line of blank space, then this: (Note: BE SUPER CAREFUL WITH WHITESPACE!) . # User Customization &lt;IfModule mpm_prefork_module&gt; StartServers 2 MinSpareServers 6 MaxSpareServers 12 MaxClients 30 MaxRequestsPerChild 3000 &lt;/IfModule&gt; . | Save, open terminal, sudo service apache2 restart | . ",
+    "url": "/tutorials/Web/Notes-on-Apache-Setup/#initial-configuration",
+    
+    "relUrl": "/tutorials/Web/Notes-on-Apache-Setup/#initial-configuration"
+  },"53": {
+    "doc": "Apache Setup",
+    "title": "Setup a Virtual Host",
+    "content": "Ok, now, let’s go ahead and disable the default site and setup one of our own. | a2dissite 000-default.conf | restart apache | . Now, we’re going to need a place to put our files… Let’s use /var/www/test.dev/public_html (mkdir -p to make a chain of dirs) - We’ll have to make that directory, as it doesn’t exist by default. Let’s also make /var/www/test.dev/logs . Now, let’s make /etc/apache2/sites-available/test.conf . &lt;VirtualHost *:80&gt;     ServerAdmin webmaster@localhost     ServerName test.dev     ServerAlias www.test.dev     DocumentRoot /var/www/test.dev/public_html     ErrorLog /var/www/test.dev/logs/error.log     CustomLog /var/www/test.dev/logs/access.log combined &lt;/VirtualHost&gt; . | Now, you’re ready to enable your site. | sudo a2ensite test.conf (This step takes the name of your conf file as an argument.) | restart apache | . | . ",
+    "url": "/tutorials/Web/Notes-on-Apache-Setup/#setup-a-virtual-host",
+    
+    "relUrl": "/tutorials/Web/Notes-on-Apache-Setup/#setup-a-virtual-host"
+  },"54": {
+    "doc": "Apache Setup",
+    "title": "See also:",
+    "content": ". | PHP | MariaDB | . ",
+    "url": "/tutorials/Web/Notes-on-Apache-Setup/#see-also",
+    
+    "relUrl": "/tutorials/Web/Notes-on-Apache-Setup/#see-also"
+  },"55": {
+    "doc": "Apache Setup",
+    "title": "Apache Setup",
+    "content": "Page Last Updated: 2023 July 03 . N.B. This page is awaiting a revamp as of July ‘23. ",
+    "url": "/tutorials/Web/Notes-on-Apache-Setup/",
+    
+    "relUrl": "/tutorials/Web/Notes-on-Apache-Setup/"
+  },"56": {
+    "doc": "Nginx Setup",
+    "title": "Notes on Nginx Setup",
+    "content": " ",
+    "url": "/tutorials/Web/Notes-on-Nginx-Setup/#notes-on-nginx-setup",
+    
+    "relUrl": "/tutorials/Web/Notes-on-Nginx-Setup/#notes-on-nginx-setup"
+  },"57": {
+    "doc": "Nginx Setup",
+    "title": "First Steps",
+    "content": "Installing Nginx (pronounced “engine-X”) is pretty straightforward. Assuming we don’t need to set any unusual configuration options, the Debian package is the easiest way to get started. To do this: . | sudo apt-get install nginx | . Having done that, let’s make sure we have backup copies of our configuration files in case something goes wrong: . sudo cp /etc/nginx/nginx.conf /etc/nginx/nginx.conf.backup #Or, for a fancier version that preserves the date as part of the filename: sudo cp /etc/nginx/nginx.conf /etc/nginx/nginx.conf.$(date \"+%b_%d_%Y_%H.%M.%S\") . ",
+    "url": "/tutorials/Web/Notes-on-Nginx-Setup/#first-steps",
+    
+    "relUrl": "/tutorials/Web/Notes-on-Nginx-Setup/#first-steps"
+  },"58": {
+    "doc": "Nginx Setup",
+    "title": "Nginx Configuration",
+    "content": "While this section is developed, there is an excellent guide for nginx on Debian Jessie here. ",
+    "url": "/tutorials/Web/Notes-on-Nginx-Setup/#nginx-configuration",
+    
+    "relUrl": "/tutorials/Web/Notes-on-Nginx-Setup/#nginx-configuration"
+  },"59": {
+    "doc": "Nginx Setup",
+    "title": "Setting up for PHP and MySQL/MariaDB support",
+    "content": "Nginx is lightweight and modular. As such, certain features that are standard on Apache need to be enabled. Let’s see some more notes on PHP and Database setup here. ",
+    "url": "/tutorials/Web/Notes-on-Nginx-Setup/#setting-up-for-php-and-mysqlmariadb-support",
+    
+    "relUrl": "/tutorials/Web/Notes-on-Nginx-Setup/#setting-up-for-php-and-mysqlmariadb-support"
+  },"60": {
+    "doc": "Nginx Setup",
+    "title": "Optimizing for Speed",
+    "content": "Nginx is pretty fast, but we can always do better. Let’s look at this guide. ",
+    "url": "/tutorials/Web/Notes-on-Nginx-Setup/#optimizing-for-speed",
+    
+    "relUrl": "/tutorials/Web/Notes-on-Nginx-Setup/#optimizing-for-speed"
+  },"61": {
+    "doc": "Nginx Setup",
+    "title": "Nginx Setup",
+    "content": "Page Last Updated: 2023 July 03 . N.B. This page is awaiting a revamp as of July ‘23. ",
+    "url": "/tutorials/Web/Notes-on-Nginx-Setup/",
+    
+    "relUrl": "/tutorials/Web/Notes-on-Nginx-Setup/"
+  },"62": {
+    "doc": "Web Servers",
+    "title": "Web Servers",
+    "content": " ",
+    "url": "/tutorials/Web/WebServers/",
+    
+    "relUrl": "/tutorials/Web/WebServers/"
+  },"63": {
+    "doc": "Projects",
+    "title": "Projects",
+    "content": "Here are some things you might want to try, now that you’ve got your Linux box up and running: . Install A CMS / Publishing Platform . | Install Wordpress | Install Drupal | Install Omeka | . Install a Web Framework . | Install Django | Install Ruby on Rails | Install Laravel | . N.B. If you want to install more than one of those (and why not?), you might want to learn about how to host multiple sites that are being served by different domain names. This is where the concept of Virtual Hosts comes in. If you want to try this, remember that you can make up your own names in your hosts file (this is step 5 in that previous link). I often use a name like this on my home network: someName.local. You are, of course, encouraged to be creative. :) . Other Fun Programming Things . | Install node.js (Install node.js on Debian – ask about a fun caveat…) . | Try Nodeschool for all sorts of skills | . | Take the Command Line Challenge | Why not learn more about BASH? (You can make useful scripts for any system that runs BASH. That could be Linux, Unix, Mac, or even Windows!) | Another BASH tutorial | . Install an XML Database / Tool . | Install eXist-db | Install BaseX (Hint: There’s an apt version, too.) | . Anything Else . There are thousands and thousands of things to try… pick any program you like and see how it works. Part of the fun of this is breaking stuff. ;) . ",
+    "url": "/projects/Projects/#projects",
+    
+    "relUrl": "/projects/Projects/#projects"
+  },"64": {
+    "doc": "Projects",
+    "title": "Projects",
+    "content": "Page Last Updated: 2023 June 10 . | Install A CMS / Publishing Platform | Install a Web Framework | Other Fun Programming Things | Install an XML Database / Tool | Anything Else | . ",
+    "url": "/projects/Projects/",
+    
+    "relUrl": "/projects/Projects/"
+  },"65": {
+    "doc": "Apache",
+    "title": "Apache",
+    "content": "Apache is a Web Server created by the Apache Software Foundation. It represents the ‘A’ in the LAMP Stack . ",
+    "url": "/docs/Apache/#apache",
+    
+    "relUrl": "/docs/Apache/#apache"
+  },"66": {
+    "doc": "Apache",
+    "title": "See Also:",
+    "content": ". | Overview of the History of Apache - DHSI 2015, Jon Martin | Notes on Apache Setup | PHP | . ",
+    "url": "/docs/Apache/#see-also",
+    
+    "relUrl": "/docs/Apache/#see-also"
+  },"67": {
+    "doc": "Apache",
+    "title": "Apache",
+    "content": "Page Last Updated: 2023 June 07 . ",
+    "url": "/docs/Apache/",
+    
+    "relUrl": "/docs/Apache/"
+  },"68": {
+    "doc": "BASH",
+    "title": "BASH",
+    "content": "BASH (Bourne Again Shell) is a command processor for interacting with the Linux kernel. It is sometimes referred to as ‘the command line,’ colloquially, but is really one of many possible shells. ",
+    "url": "/docs/BASH/#bash",
+    
+    "relUrl": "/docs/BASH/#bash"
+  },"69": {
+    "doc": "BASH",
+    "title": "See also:",
+    "content": ". | Tutorial on BASH and the Command Line - DHSI 2015, Jon Martin | Explain Shell! | An Introduction to Linux I/O Redirection | Advanced Bash Scripting Guide: Exit Codes With Special Meanings | Keynote from BSDCan 2015: Stephen Bourne, “Early Days of Unix and Design of sh” - YouTube | . ",
+    "url": "/docs/BASH/#see-also",
+    
+    "relUrl": "/docs/BASH/#see-also"
+  },"70": {
+    "doc": "BASH",
+    "title": "BASH",
+    "content": "Page Last Updated: 2023 June 07 . ",
+    "url": "/docs/BASH/",
+    
+    "relUrl": "/docs/BASH/"
+  },"71": {
+    "doc": "LAMP Stack",
+    "title": "LAMP Stack",
+    "content": "‘LAMP’ is a commonly used acronym for ‘Linux, Apache, MySQL, and PHP.’ . ",
+    "url": "/docs/LAMP-Stack/#lamp-stack",
+    
+    "relUrl": "/docs/LAMP-Stack/#lamp-stack"
+  },"72": {
+    "doc": "LAMP Stack",
+    "title": "See also",
+    "content": ". | MAMP (Coming soon…) | . ",
+    "url": "/docs/LAMP-Stack/#see-also",
+    
+    "relUrl": "/docs/LAMP-Stack/#see-also"
+  },"73": {
+    "doc": "LAMP Stack",
+    "title": "LAMP Stack",
+    "content": "Page Last Updated: 2023 June 07 . ",
+    "url": "/docs/LAMP-Stack/",
+    
+    "relUrl": "/docs/LAMP-Stack/"
+  },"74": {
+    "doc": "Linux",
+    "title": "Linux",
+    "content": "Linux is the name for a class of operating system built on the kernel developed by Linus Torvalds in 1991. It builds on the work done on Unix in the 1970s and ’80s. It is commonly referred to as the ‘L’ in the LAMP Stack. ",
+    "url": "/docs/Linux/#linux",
+    
+    "relUrl": "/docs/Linux/#linux"
+  },"75": {
+    "doc": "Linux",
+    "title": "External Links",
+    "content": ". | EdX Course: Introduction to Linux | Why the Name? Debian package names explained. | “Open Source History: Why did Linux Succeed?” | . ",
+    "url": "/docs/Linux/#external-links",
+    
+    "relUrl": "/docs/Linux/#external-links"
+  },"76": {
+    "doc": "Linux",
+    "title": "Linux",
+    "content": "Page Last Updated: 2023 June 07 . ",
+    "url": "/docs/Linux/",
+    
+    "relUrl": "/docs/Linux/"
+  },"77": {
+    "doc": "MySQL",
+    "title": "MariaDB (also MySQL)",
+    "content": "MariaDB is a relational database that uses the SQL language. It is a drop-in, open-source replacement for MySQL. It represents the ‘M’ in the LAMP Stack. ",
+    "url": "/docs/MySQL/#mariadb-also-mysql",
+    
+    "relUrl": "/docs/MySQL/#mariadb-also-mysql"
+  },"78": {
+    "doc": "MySQL",
+    "title": "See Also:",
+    "content": ". | Overview of the MariaDB Server | Notes on MariaDB Setup | . ",
+    "url": "/docs/MySQL/#see-also",
+    
+    "relUrl": "/docs/MySQL/#see-also"
+  },"79": {
+    "doc": "MySQL",
+    "title": "External Links:",
+    "content": ". | MariaDB.org | sqlteaching.com | Introduction to Databases - Stanford | . ",
+    "url": "/docs/MySQL/#external-links",
+    
+    "relUrl": "/docs/MySQL/#external-links"
+  },"80": {
+    "doc": "MySQL",
+    "title": "MySQL",
+    "content": "Page Last Updated: 2023 June 07 . ",
+    "url": "/docs/MySQL/",
+    
+    "relUrl": "/docs/MySQL/"
+  },"81": {
+    "doc": "PHP",
+    "title": "PHP",
+    "content": "PHP is a server-side scripting language that is commonly found in projects like WordPress, Drupal, and Omeka. It represents the ‘P’ in the LAMP Stack. ",
+    "url": "/docs/PHP/#php",
+    
+    "relUrl": "/docs/PHP/#php"
+  },"82": {
+    "doc": "PHP",
+    "title": "See also:",
+    "content": "Notes on PHP Setup . ",
+    "url": "/docs/PHP/#see-also",
+    
+    "relUrl": "/docs/PHP/#see-also"
+  },"83": {
+    "doc": "PHP",
+    "title": "External links:",
+    "content": "PHP.net . ",
+    "url": "/docs/PHP/#external-links",
+    
+    "relUrl": "/docs/PHP/#external-links"
+  },"84": {
+    "doc": "PHP",
+    "title": "PHP",
+    "content": "Page Last Updated: 2023 June 07 . ",
+    "url": "/docs/PHP/",
+    
+    "relUrl": "/docs/PHP/"
+  },"85": {
+    "doc": "Unix",
+    "title": "Unix",
+    "content": "Unix is an Operating System invented by Ken Thompson and Dennis Ritchie at AT&amp;T’s Bell Labs in 1970. It remains the inspiration for the Linux Operating System. ",
+    "url": "/docs/Unix/#unix",
+    
+    "relUrl": "/docs/Unix/#unix"
+  },"86": {
+    "doc": "Unix",
+    "title": "External Links",
+    "content": ". | Prezi: History of Linux | “BSD Unix: Power to the people, from the code,” Salon | “Understanding the bin, sbin, usr/bin, usr/sbin Split,” Hacker Monthly | Basics of the Unix Philosophy, Eric Raymond, catb.org | Keynote from BSDCan 2015: Stephen Bourne, “Early Days of Unix and Design of sh” - YouTube | . ",
+    "url": "/docs/Unix/#external-links",
+    
+    "relUrl": "/docs/Unix/#external-links"
+  },"87": {
+    "doc": "Unix",
+    "title": "Unix",
+    "content": "Page Last Updated: 2023 June 07 . ",
+    "url": "/docs/Unix/",
+    
+    "relUrl": "/docs/Unix/"
+  },"88": {
+    "doc": "VirtualBox",
+    "title": "VirtualBox",
+    "content": "VirtualBox is a program from Oracle that allows for the creation of a virtual machine. ",
+    "url": "/docs/VirtualBox/#virtualbox",
+    
+    "relUrl": "/docs/VirtualBox/#virtualbox"
+  },"89": {
+    "doc": "VirtualBox",
+    "title": "See also",
+    "content": "Tutorials . ",
+    "url": "/docs/VirtualBox/#see-also",
+    
+    "relUrl": "/docs/VirtualBox/#see-also"
+  },"90": {
+    "doc": "VirtualBox",
+    "title": "External Links",
+    "content": "Slideshow on setting up Debian Linux and VirtualBox - Jon Martin, DHSI 2015 . ",
+    "url": "/docs/VirtualBox/#external-links",
+    
+    "relUrl": "/docs/VirtualBox/#external-links"
+  },"91": {
+    "doc": "VirtualBox",
+    "title": "VirtualBox",
+    "content": "Page Last Updated: 2023 June 07 . ",
+    "url": "/docs/VirtualBox/",
+    
+    "relUrl": "/docs/VirtualBox/"
+  },"92": {
+    "doc": "Web Servers",
+    "title": "Web Servers",
+    "content": " ",
+    "url": "/docs/WebServers/",
+    
+    "relUrl": "/docs/WebServers/"
+  }
+}

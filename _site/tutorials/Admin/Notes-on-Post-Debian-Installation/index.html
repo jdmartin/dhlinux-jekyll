@@ -1,0 +1,127 @@
+<!DOCTYPE html> <html lang="en-US"> <head> <meta charset="UTF-8"> <meta http-equiv="X-UA-Compatible" content="IE=Edge"> <link rel="stylesheet" href="/assets/css/just-the-docs-default.css"> <script src="/assets/js/vendor/lunr.min.js"></script> <script src="/assets/js/just-the-docs.js"></script> <meta name="viewport" content="width=device-width, initial-scale=1"> <link rel="icon" href="/favicon.ico" type="image/x-icon"> <!-- Begin Jekyll SEO tag v2.8.0 --> <title>Post-Debian Installation | DHLinux Wiki</title> <meta name="generator" content="Jekyll v4.3.2" /> <meta property="og:title" content="Post-Debian Installation" /> <meta property="og:locale" content="en_US" /> <meta name="description" content="Page Last Updated: 2023 July 03" /> <meta property="og:description" content="Page Last Updated: 2023 July 03" /> <link rel="canonical" href="https://wiki.dhlinux.org/tutorials/Admin/Notes-on-Post-Debian-Installation/" /> <meta property="og:url" content="https://wiki.dhlinux.org/tutorials/Admin/Notes-on-Post-Debian-Installation/" /> <meta property="og:site_name" content="DHLinux Wiki" /> <meta property="og:type" content="article" /> <meta property="article:published_time" content="2023-07-03T17:16:07-07:00" /> <meta name="twitter:card" content="summary" /> <meta property="twitter:title" content="Post-Debian Installation" /> <script type="application/ld+json"> {"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2023-07-03T15:38:00-07:00","datePublished":"2023-07-03T17:16:07-07:00","description":"Page Last Updated: 2023 July 03","headline":"Post-Debian Installation","mainEntityOfPage":{"@type":"WebPage","@id":"https://wiki.dhlinux.org/tutorials/Admin/Notes-on-Post-Debian-Installation/"},"url":"https://wiki.dhlinux.org/tutorials/Admin/Notes-on-Post-Debian-Installation/"}</script> <!-- End Jekyll SEO tag --> </head> <body> <a class="skip-to-main" href="#main-content">Skip to main content</a> <svg xmlns="http://www.w3.org/2000/svg" class="d-none"> <symbol id="svg-link" viewBox="0 0 24 24"> <title>Link</title> <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-link"> <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path> </svg> </symbol> <symbol id="svg-menu" viewBox="0 0 24 24"> <title>Menu</title> <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-menu"> <line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line> </svg> </symbol> <symbol id="svg-arrow-right" viewBox="0 0 24 24"> <title>Expand</title> <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-right"> <polyline points="9 18 15 12 9 6"></polyline> </svg> </symbol> <!-- Feather. MIT License: https://github.com/feathericons/feather/blob/master/LICENSE --> <symbol id="svg-external-link" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-external-link"> <title id="svg-external-link-title">(external link)</title> <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line> </symbol> <symbol id="svg-doc" viewBox="0 0 24 24"> <title>Document</title> <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file"> <path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"></path><polyline points="13 2 13 9 20 9"></polyline> </svg> </symbol> <symbol id="svg-search" viewBox="0 0 24 24"> <title>Search</title> <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-search"> <circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line> </svg> </symbol> <!-- Bootstrap Icons. MIT License: https://github.com/twbs/icons/blob/main/LICENSE.md --> <symbol id="svg-copy" viewBox="0 0 16 16"> <title>Copy</title> <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-clipboard" viewBox="0 0 16 16"> <path d="M4 1.5H3a2 2 0 0 0-2 2V14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V3.5a2 2 0 0 0-2-2h-1v1h1a1 1 0 0 1 1 1V14a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V3.5a1 1 0 0 1 1-1h1v-1z"/> <path d="M9.5 1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5h3zm-3-1A1.5 1.5 0 0 0 5 1.5v1A1.5 1.5 0 0 0 6.5 4h3A1.5 1.5 0 0 0 11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3z"/> </svg> </symbol> <symbol id="svg-copied" viewBox="0 0 16 16"> <title>Copied</title> <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-clipboard-check-fill" viewBox="0 0 16 16"> <path d="M6.5 0A1.5 1.5 0 0 0 5 1.5v1A1.5 1.5 0 0 0 6.5 4h3A1.5 1.5 0 0 0 11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3Zm3 1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5h3Z"/> <path d="M4 1.5H3a2 2 0 0 0-2 2V14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V3.5a2 2 0 0 0-2-2h-1v1A2.5 2.5 0 0 1 9.5 5h-3A2.5 2.5 0 0 1 4 2.5v-1Zm6.854 7.354-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 0 1 .708-.708L7.5 10.793l2.646-2.647a.5.5 0 0 1 .708.708Z"/> </svg> </symbol> </svg> <div class="side-bar"> <div class="site-header" role="banner"> <a href="/" class="site-title lh-tight"> DHLinux Wiki </a> <button id="menu-button" class="site-button btn-reset" aria-label="Toggle menu" aria-pressed="false"> <svg viewBox="0 0 24 24" class="icon" aria-hidden="true"><use xlink:href="#svg-menu"></use></svg> </a> </div> <nav aria-label="Main" id="site-nav" class="site-nav"> <div class="nav-category">Tutorials</div> <ul class="nav-list"><li class="nav-list-item"><a href="/tutorials/Tutorials-and-Setup-Guides/" class="nav-list-link">Overview</a></li><li class="nav-list-item active"><button class="nav-list-expander btn-reset" aria-label="toggle items in Administration category" aria-pressed="true"> <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg> </button><a href="/tutorials/Admin/Admin/" class="nav-list-link">Administration</a><ul class="nav-list"><li class="nav-list-item "><a href="/tutorials/Admin/Cron/" class="nav-list-link">Cron</a></li><li class="nav-list-item active"><a href="/tutorials/Admin/Notes-on-Post-Debian-Installation/" class="nav-list-link active">Post-Debian Installation</a></li></ul></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="toggle items in Databases category" aria-pressed="false"> <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg> </button><a href="/tutorials/Databases/Databases/" class="nav-list-link">Databases</a><ul class="nav-list"><li class="nav-list-item "><a href="/tutorials/Databases/Notes-on-MariaDB-Setup/" class="nav-list-link">MariaDB/MySQL Setup</a></li></ul></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="toggle items in Languages category" aria-pressed="false"> <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg> </button><a href="/tutorials/Languages/Languages/" class="nav-list-link">Languages</a><ul class="nav-list"><li class="nav-list-item "><a href="/tutorials/Languages/Notes-on-PHP-Setup/" class="nav-list-link">PHP Setup</a></li><li class="nav-list-item "><a href="/tutorials/Languages/Notes-on-PHPMyAdmin-Setup/" class="nav-list-link">PHPMyAdmin Setup</a></li></ul></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="toggle items in Server Security category" aria-pressed="false"> <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg> </button><a href="/tutorials/Server%20Security/ServerSec/" class="nav-list-link">Server Security</a><ul class="nav-list"><li class="nav-list-item "><a href="/tutorials/Server%20Security/Fail2ban/" class="nav-list-link">Fail2ban</a></li><li class="nav-list-item "><a href="/tutorials/Server%20Security/Iptables/" class="nav-list-link">Iptables</a></li></ul></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="toggle items in Web Servers category" aria-pressed="false"> <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg> </button><a href="/tutorials/Web/WebServers/" class="nav-list-link">Web Servers</a><ul class="nav-list"><li class="nav-list-item "><a href="/tutorials/Web/Notes-on-Apache-Setup/" class="nav-list-link">Apache Setup</a></li><li class="nav-list-item "><a href="/tutorials/Web/Notes-on-Nginx-Setup/" class="nav-list-link">Nginx Setup</a></li></ul></li></ul> <div class="nav-category">Projects</div> <ul class="nav-list"><li class="nav-list-item"><a href="/projects/Projects/" class="nav-list-link">Projects</a></li></ul> <div class="nav-category">Glossary</div> <ul class="nav-list"><li class="nav-list-item"><a href="/docs/BASH/" class="nav-list-link">BASH</a></li><li class="nav-list-item"><a href="/docs/LAMP-Stack/" class="nav-list-link">LAMP Stack</a></li><li class="nav-list-item"><a href="/docs/Linux/" class="nav-list-link">Linux</a></li><li class="nav-list-item"><a href="/docs/MySQL/" class="nav-list-link">MySQL</a></li><li class="nav-list-item"><a href="/docs/PHP/" class="nav-list-link">PHP</a></li><li class="nav-list-item"><a href="/docs/Unix/" class="nav-list-link">Unix</a></li><li class="nav-list-item"><a href="/docs/VirtualBox/" class="nav-list-link">VirtualBox</a></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="toggle items in Web Servers category" aria-pressed="false"> <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg> </button><a href="/docs/WebServers/" class="nav-list-link">Web Servers</a><ul class="nav-list"><li class="nav-list-item "><a href="/docs/Apache/" class="nav-list-link">Apache</a></li></ul></li></ul> </nav> <footer class="site-footer"> This site uses <a href="https://github.com/just-the-docs/just-the-docs">Just the Docs</a>, a documentation theme for Jekyll. </footer> </div> <div class="main" id="top"> <div id="main-header" class="main-header"> <div class="search" role="search"> <div class="search-input-wrap"> <input type="text" id="search-input" class="search-input" tabindex="0" placeholder="Search DHLinux Wiki" aria-label="Search DHLinux Wiki" autocomplete="off"> <label for="search-input" class="search-label"><svg viewBox="0 0 24 24" class="search-icon"><use xlink:href="#svg-search"></use></svg></label> </div> <div id="search-results" class="search-results"></div> </div> </div> <div id="main-content-wrap" class="main-content-wrap"> <nav aria-label="Breadcrumb" class="breadcrumb-nav"> <ol class="breadcrumb-nav-list"> <li class="breadcrumb-nav-list-item"><a href="/tutorials/Admin/Admin/">Administration</a></li> <li class="breadcrumb-nav-list-item"><span>Post-Debian Installation</span></li> </ol> </nav> <div id="main-content" class="main-content"> <main> <h5> Page Last Updated: 2023 July 03 </h5> <p><br /></p> <h2 id="notes-on-post-debian-installation"> <a href="#notes-on-post-debian-installation" class="anchor-heading" aria-labelledby="notes-on-post-debian-installation"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Notes on Post-Debian Installation </h2> <p><strong>Some things to do shortly after installing Debian:</strong></p> <h2 id="securing"> <a href="#securing" class="anchor-heading" aria-labelledby="securing"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Securing </h2> <h3 id="first-5-minutes"> <a href="#first-5-minutes" class="anchor-heading" aria-labelledby="first-5-minutes"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> First 5 Minutes </h3> <ul> <li>Make sure you’re up-to-date and that your box is starting from a clean installation by running the following:</li> </ul> <!-- --> <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>su (to become root)
+apt-get update &amp;&amp; apt-get upgrade
+</code></pre></div></div> <ul> <li>We don’t want to remain root if it can be avoided, so let’s install the useful sudo tool. Here’s how:</li> </ul> <!-- --> <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>su (if not already root)
+apt-get install sudo
+
+adduser {your username here} sudo
+exit
+su - {your username here}
+</code></pre></div></div> <p>Congrats! Your user account now has the ability to issue sudo commands as needed.</p> <h3 id="firewall"> <a href="#firewall" class="anchor-heading" aria-labelledby="firewall"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Firewall: </h3> <p>There are two options: For the simplest firewall,</p> <ul> <li>From within GNOME, open the Synaptic Package Manager by heading to Activities and searching for it.</li> <li>Find gufw, and mark it for installation. <ul> <li>Choose Apply</li> <li>Once done, you can close Synaptic.</li> </ul> </li> <li>Once installed, enter ‘sudo gufw’ into your terminal’</li> <li>Unlock gufw, enable it, and make sure all incoming is blocked. All outgoing may be allowed.</li> <li>At this point, you may add any ports you might need by clicking the + at the bottom. (e.g. 80 for HTTP traffic, 443 for HTTPS, etc.) (Hint: You can switch from ‘Application’ to ‘Service’ to make a generic rule for a given port…)</li> </ul> <p>For a more hands-on method (and one that allows deeper <a href="../../Server Security/Fail2ban/" title="wikilink">Fail2ban</a> integration, I recommend using an iptables-based firewall. (Details on setting that up are here: <a href="../../Server Security/iptables" title="wikilink">iptables</a>)</p> <h2 id="intrusion-detection-and-mitigation"> <a href="#intrusion-detection-and-mitigation" class="anchor-heading" aria-labelledby="intrusion-detection-and-mitigation"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Intrusion Detection and Mitigation </h2> <h3 id="install-fail2ban"> <a href="#install-fail2ban" class="anchor-heading" aria-labelledby="install-fail2ban"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Install Fail2ban </h3> <p>Fail2ban is a wonderful tool that automatically parses your logs and prevents malicious servers and humans from accessing your server.</p> <p>Installation is very simple:</p> <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo apt-get install fail2ban
+</code></pre></div></div> <p>We’ll look at some customization options in the article on <a href="../Fail2ban" title="wikilink">Fail2ban</a>.</p> <ul> <li><a href="https://www.digitalocean.com/community/tutorials/how-to-protect-ssh-with-fail2ban-on-debian-7">Useful Guide for Debian 7… still works!</a></li> </ul> <h3 id="securing-ssh"> <a href="#securing-ssh" class="anchor-heading" aria-labelledby="securing-ssh"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Securing SSH </h3> <p>Unless you have a strong desire to have your server broken into, you’re going to access your server via <a href="SSH" title="wikilink">SSH</a>/<a href="SFTP" title="wikilink">SFTP</a>. With some basic steps, we can make sure that this process is so secure that even the NSA will weep bitter tears.</p> <p>By default, password authentication is used to connect to your server via SSH. A cryptographic key-pair is more secure because a private key takes the place of a password, which is generally much more difficult to brute-force. In this section we’ll create a key-pair and configure the server to not accept passwords for SSH logins.</p> <h4 id="create-an-authentication-key-pair"> <a href="#create-an-authentication-key-pair" class="anchor-heading" aria-labelledby="create-an-authentication-key-pair"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Create an Authentication Key-pair </h4> <p>I recommend following the instructions in <a href="https://www.linode.com/docs/security/securing-your-server#create-an-authentication-key-pair">this guide</a> for creating and uploading your key-pair. Just replace the word “Linode” with “server” when you read it. ;)</p> <h4 id="editing-the-ssh-daemon-configuration"> <a href="#editing-the-ssh-daemon-configuration" class="anchor-heading" aria-labelledby="editing-the-ssh-daemon-configuration"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Editing the SSH Daemon Configuration </h4> <p>Now that our keys are safely uploaded, let’s open up the configuration file for the SSH daemon:</p> <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo nano /etc/ssh/sshd_config
+</code></pre></div></div> <p>There are a lot of options here. I’m going to ignore a bunch, but here are the things that I change:</p> <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Include /etc/ssh/sshd_config.d/*.conf
+
+# What ports, IPs and protocols we listen for
+Port 22
+
+# Use these options to restrict which protocols sshd will use
+Protocol 2
+
+# Supported HostKey algorithms by order of preference.
+HostKey /etc/ssh/ssh_host_ed25519_key
+#HostKey /etc/ssh/ssh_host_rsa_key
+#HostKey /etc/ssh/ssh_host_ecdsa_key
+
+KexAlgorithms curve25519-sha256@libssh.org
+Ciphers chacha20-poly1305@openssh.com,aes256-gcm@openssh.com,aes128-gcm@openssh.com,aes256-ctr,aes192-ctr,aes128-ctr
+MACs hmac-sha2-512-etm@openssh.com,hmac-sha2-256-etm@openssh.com,umac-128-etm@openssh.com
+
+AllowUsers alice bob charlie (**just replace these with the users on your system that need access**)
+#AddressFamily inet
+
+KbdInteractiveAuthentication no
+
+# Lifetime and size of ephemeral version 1 server key
+#KeyRegenerationInterval 3600
+#ServerKeyBits 4096
+#UseRoaming no
+
+# Logging
+SyslogFacility AUTH
+LogLevel INFO
+
+# Authentication:
+LoginGraceTime 30
+PermitRootLogin prohibit-password (**or set to no**)
+StrictModes yes
+
+#RSAAuthentication yes
+PubkeyAuthentication yes
+AuthorizedKeysFile	.ssh/authorized_keys
+
+# Don't read the user's ~/.rhosts and ~/.shosts files
+IgnoreRhosts yes
+# For this to work you will also need host keys in /etc/ssh_known_hosts
+#RhostsRSAAuthentication no
+# similar for protocol version 2
+HostbasedAuthentication no
+# Uncomment if you don't trust ~/.ssh/known_hosts for RhostsRSAAuthentication
+#IgnoreUserKnownHosts yes
+
+# To enable empty passwords, change to yes (NOT RECOMMENDED)
+PermitEmptyPasswords no
+
+# Change to yes to enable challenge-response passwords (beware issues with some PAM modules and threads)
+ChallengeResponseAuthentication no
+
+# Change to no to disable tunnelled clear text passwords
+PasswordAuthentication no
+
+# Kerberos options
+KerberosAuthentication no
+#KerberosGetAFSToken no
+#KerberosOrLocalPasswd yes
+#KerberosTicketCleanup yes
+
+# GSSAPI options
+GSSAPIAuthentication no
+#GSSAPICleanupCredentials yes
+
+X11Forwarding no
+X11DisplayOffset 10
+PrintMotd yes
+PrintLastLog no
+TCPKeepAlive no
+ClientAliveInterval 60
+ClientAliveCountMax 5
+AllowTcpForwarding no
+MaxAuthTries 3
+MaxSessions 8
+PermitUserRC no
+PermitUserEnvironment no
+UseDNS no
+#Compression no
+#UseLogin no
+#KeepAlive yes
+
+#MaxStartups 10:30:60
+#Banner /etc/issue.net
+
+# Allow client to pass locale environment variables
+#AcceptEnv LANG LC_*
+
+# Set this to 'yes' to enable PAM authentication, account processing,
+# and session processing. If this is enabled, PAM authentication will
+# be allowed through the ChallengeResponseAuthentication and
+# PasswordAuthentication.  Depending on your PAM configuration,
+# PAM authentication via ChallengeResponseAuthentication may bypass
+# the setting of "PermitRootLogin without-password".
+# If you just want the PAM account and session checks to run without
+# PAM authentication, then enable this but set PasswordAuthentication
+# and ChallengeResponseAuthentication to 'no'.
+UsePAM no
+
+AcceptEnv LANG LC_*
+# override default of no subsystems
+Subsystem	sftp	/usr/lib/openssh/sftp-server
+</code></pre></div></div> <p>Ok, cool. It’s time to restart SSH and see that everything works. Please note that your current session shouldn’t disconnect. In fact, you should try logging in again in a separate tab, rather than exiting and re-entering. This helps to avoid being locked out in the event that something went awry. ;) So, with that in mind:</p> <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo systemctl restart sshd
+</code></pre></div></div> <p>Now, can we login in a new tab? If it works, we’ll get a message about accepting keys (possibly). Hopefully, you’re now looking at:</p> <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$
+</code></pre></div></div> <h2 id="package-management"> <a href="#package-management" class="anchor-heading" aria-labelledby="package-management"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Package Management </h2> <ul> <li>You should make a point of using ‘sudo apt-get update &amp;&amp; sudo apt-get upgrade’ at least once a day. This will ensure your box is safe and up-to-date.</li> </ul> <p>That said, you may want to look into running the unattended-upgrades package. As the name would suggest, this automates the process of updating your machine. To do this:</p> <ul> <li> <ol> <li>apt-get install unattended-upgrades</li> </ol> </li> </ul> <p>With that accomplished, it’s time to edit another file:</p> <ul> <li> <ol> <li>nano /etc/apt/apt.conf.d/50unattended-upgrades</li> </ol> </li> </ul> <p>You’re free to edit this file as suits your needs. (You may want it to e-mail you the results, for instance.) The key bit is:</p> <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Unattended-Upgrade::Origins-Pattern {
+        // Codename based matching:
+        // This will follow the migration of a release through different
+        // archives (e.g. from testing to stable and later oldstable).
+        //      "origin=Debian,codename=${distro_codename}-updates";
+        //      "origin=Debian,codename=${distro_codename}-proposed-updates";
+        "origin=Debian,codename=${distro_codename},label=Debian";
+        "origin=Debian,codename=${distro_codename},label=Debian-Security";
+        "origin=Debian,codename=${distro_codename}-security,label=Debian-Security";
+</code></pre></div></div> <p>The above will ensure that all of your stable packages are up-to-date, and that any security patches are installed. You may have good reason to wait on stable packages, but consider whether there’s a benefit to delaying security patches. Also, look through the rest of that file to find options to handle automatic reboots or reloads!</p> <h2 id="external-links"> <a href="#external-links" class="anchor-heading" aria-labelledby="external-links"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> External Links </h2> <ul> <li><a href="http://www.dailylinuxnews.com/blog/2014/09/things-to-do-after-installing-debian-jessie/">Things to do after installing Debian Jessie</a></li> <li><a href="https://www.debian.org/doc/manuals/debian-faq/ch-uptodate.en.html">Notes on using APT</a></li> <li><a href="https://gehrcke.de/2014/06/good-to-know-checkrestart-from-debian-goodies/">Notes on Checkrestart and Needrestart</a></li> <li><a href="http://code.tutsplus.com/tutorials/scheduling-tasks-with-cron-jobs--net-8800">Scheduling tasks with crontab</a></li> <li><a href="https://www.linode.com/docs/tools-reference/linux-system-administration-basics">Linode Guide to SysAdmin Basics</a></li> <li><a href="http://www.thegeekstuff.com/2012/07/wget-curl/">How to Use Wget and Curl to download files</a></li> <li><a href="http://www.linfo.org/tar.html">Using tar to (de)compress files</a></li> </ul> </main> <hr> <footer> <p><a href="#top" id="back-to-top">Back to top</a></p> <p class="text-small text-grey-dk-100 mb-0">Connect with Jon on <a href='https://cyberdeck.social/@jon' target='_blank'>Mastodon</a>.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Debian logo courtesy of <a href='https://www.debian.org/'>Debian.org</a></p> <div class="d-flex mt-2"> <p class="text-small text-grey-dk-000 mb-0"> <a href="https://github.com/jdmartin/dhlinux-jekyll/tree/main//_tutorials/Admin/Notes-on-Post-Debian-Installation.md" id="edit-this-page">Edit this page on GitHub.</a> </p> </div> </footer> </div> </div> <div class="search-overlay"></div> </div> </body> </html>
