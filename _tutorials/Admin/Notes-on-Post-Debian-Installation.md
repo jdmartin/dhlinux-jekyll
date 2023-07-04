@@ -26,12 +26,7 @@ Securing
 
 <!-- -->
 
-    su
-    nano /etc/apt/sources.list
-    (insert a # to comment out the line near the top that refers to your .iso.  This will force apt to pull the latest releases from your network mirror.)
-    save and exit nano
-
-    apt-get update && apt-get upgrade
+    su (if not already root)
     apt-get install sudo
 
     adduser {your username here} sudo
@@ -53,7 +48,7 @@ For the simplest firewall,
 -   Unlock gufw, enable it, and make sure all incoming is blocked. All outgoing may be allowed.
 -   At this point, you may add any ports you might need by clicking the + at the bottom. (e.g. 80 for HTTP traffic, 443 for HTTPS, etc.) (Hint: You can switch from 'Application' to 'Service' to make a generic rule for a given port...)
 
-For a more hands-on method (and one that allows deeper [Fail2ban](../Fail2ban "wikilink") integration, I recommend using an iptables-based firewall. (Details on setting that up are here: [iptables](../iptables "wikilink"))
+For a more hands-on method (and one that allows deeper [Fail2ban](../../Server Security/Fail2ban/ "wikilink") integration, I recommend using an iptables-based firewall. (Details on setting that up are here: [iptables](../../Server Security/iptables "wikilink"))
 
 Intrusion Detection and Mitigation
 ----------------------------------
@@ -72,7 +67,7 @@ We'll look at some customization options in the article on [Fail2ban](../Fail2ba
 
 ### Securing SSH
 
-Unless you have an insane death wish, or you hate Freedom, you're going to access your server via [SSH](SSH "wikilink")/[SFTP](SFTP "wikilink"). With some basic steps, we can make sure that this process is so secure that even the NSA will weep bitter tears.
+Unless you have a strong desire to have your server broken into, you're going to access your server via [SSH](SSH "wikilink")/[SFTP](SFTP "wikilink"). With some basic steps, we can make sure that this process is so secure that even the NSA will weep bitter tears.
 
 By default, password authentication is used to connect to your server via SSH. A cryptographic key-pair is more secure because a private key takes the place of a password, which is generally much more difficult to brute-force. In this section we’ll create a key-pair and configure the server to not accept passwords for SSH logins.
 
@@ -88,40 +83,96 @@ Now that our keys are safely uploaded, let's open up the configuration file for 
 
 There are a lot of options here. I'm going to ignore a bunch, but here are the things that I change:
 
-    # What ports, IPs and protocols we listen for
-    Port 979 (Whatever you choose, make sure it's open in your firewall!)
-    # Use these options to restrict which interfaces/protocols sshd will bind to
-    #ListenAddress ::
-    #ListenAddress 0.0.0.0
-    Protocol 2
-    # HostKeys for protocol version 2
-    HostKey /etc/ssh/ssh_host_rsa_key
-    HostKey /etc/ssh/ssh_host_dsa_key
-    #Use only high-grade ciphers for key exchange and session encryption
-    KexAlgorithms curve25519-sha256@libssh.org,diffie-hellman-group-exchange-sha256
-    Ciphers chacha20-poly1305@openssh.com,aes256-gcm@openssh.com,aes128-gcm@openssh.com,aes256-ctr,aes192-ctr,aes128-ctr
-    MACs hmac-sha2-512-etm@openssh.com,hmac-sha2-256-etm@openssh.com,hmac-ripemd160-etm@openssh.com,umac-128-etm@openssh.com,hmac-sha2-512,hmac-sha2-256,hmac-ripemd160,umac-128@openssh.com
+    Include /etc/ssh/sshd_config.d/*.conf
 
-    #Privilege Separation is turned on for security
-    UsePrivilegeSeparation sandbox
-    AllowUsers {names of users that need to login only - NOT ROOT}
-    AddressFamily inet {ipv4 connections only.}
+    # What ports, IPs and protocols we listen for
+    Port 22
+
+    # Use these options to restrict which protocols sshd will use
+    Protocol 2
+
+    # Supported HostKey algorithms by order of preference.
+    HostKey /etc/ssh/ssh_host_ed25519_key
+    #HostKey /etc/ssh/ssh_host_rsa_key
+    #HostKey /etc/ssh/ssh_host_ecdsa_key
+
+    KexAlgorithms curve25519-sha256@libssh.org
+    Ciphers chacha20-poly1305@openssh.com,aes256-gcm@openssh.com,aes128-gcm@openssh.com,aes256-ctr,aes192-ctr,aes128-ctr
+    MACs hmac-sha2-512-etm@openssh.com,hmac-sha2-256-etm@openssh.com,umac-128-etm@openssh.com
+
+    AllowUsers alice bob charlie (**just replace these with the users on your system that need access**)
+    #AddressFamily inet
+
+    KbdInteractiveAuthentication no
+
+    # Lifetime and size of ephemeral version 1 server key
+    #KeyRegenerationInterval 3600
+    #ServerKeyBits 4096
+    #UseRoaming no
+
+    # Logging
+    SyslogFacility AUTH
+    LogLevel INFO
 
     # Authentication:
     LoginGraceTime 30
-    PermitRootLogin no
+    PermitRootLogin prohibit-password (**or set to no**)
+    StrictModes yes
+
+    #RSAAuthentication yes
+    PubkeyAuthentication yes
+    AuthorizedKeysFile	.ssh/authorized_keys
+
+    # Don't read the user's ~/.rhosts and ~/.shosts files
+    IgnoreRhosts yes
+    # For this to work you will also need host keys in /etc/ssh_known_hosts
+    #RhostsRSAAuthentication no
+    # similar for protocol version 2
+    HostbasedAuthentication no
+    # Uncomment if you don't trust ~/.ssh/known_hosts for RhostsRSAAuthentication
+    #IgnoreUserKnownHosts yes
+
+    # To enable empty passwords, change to yes (NOT RECOMMENDED)
+    PermitEmptyPasswords no
+
+    # Change to yes to enable challenge-response passwords (beware issues with some PAM modules and threads)
+    ChallengeResponseAuthentication no
 
     # Change to no to disable tunnelled clear text passwords
     PasswordAuthentication no
 
+    # Kerberos options
+    KerberosAuthentication no
+    #KerberosGetAFSToken no
+    #KerberosOrLocalPasswd yes
+    #KerberosTicketCleanup yes
+
+    # GSSAPI options
+    GSSAPIAuthentication no
+    #GSSAPICleanupCredentials yes
+
     X11Forwarding no
     X11DisplayOffset 10
-    PrintMotd no
+    PrintMotd yes
     PrintLastLog no
-    TCPKeepAlive yes
-    KeepAlive yes
+    TCPKeepAlive no
     ClientAliveInterval 60
     ClientAliveCountMax 5
+    AllowTcpForwarding no
+    MaxAuthTries 3
+    MaxSessions 8
+    PermitUserRC no
+    PermitUserEnvironment no
+    UseDNS no
+    #Compression no
+    #UseLogin no
+    #KeepAlive yes
+
+    #MaxStartups 10:30:60
+    #Banner /etc/issue.net
+
+    # Allow client to pass locale environment variables
+    #AcceptEnv LANG LC_*
 
     # Set this to 'yes' to enable PAM authentication, account processing,
     # and session processing. If this is enabled, PAM authentication will
@@ -133,6 +184,10 @@ There are a lot of options here. I'm going to ignore a bunch, but here are the t
     # PAM authentication, then enable this but set PasswordAuthentication
     # and ChallengeResponseAuthentication to 'no'.
     UsePAM no
+
+    AcceptEnv LANG LC_*
+    # override default of no subsystems
+    Subsystem	sftp	/usr/lib/openssh/sftp-server
 
 Ok, cool. It's time to restart SSH and see that everything works. Please note that your current session shouldn't disconnect. In fact, you should try logging in again in a separate tab, rather than exiting and re-entering. This helps to avoid being locked out in the event that something went awry. ;) So, with that in mind:
 
@@ -147,17 +202,9 @@ Package Management
 
 -   You should make a point of using 'sudo apt-get update && sudo apt-get upgrade' at least once a day. This will ensure your box is safe and up-to-date.
 
-That said, you may want to look into running the unattended upgrades package. As the name would suggest, this automates the process of updating your machine. To do this:
+That said, you may want to look into running the unattended-upgrades package. As the name would suggest, this automates the process of updating your machine. To do this:
 
 -   1.  apt-get install unattended-upgrades
--   1.  nano /etc/apt/apt.conf.d/10periodic
-
-You'll want to make sure your options look like these:
-
-    APT::Periodic::Update-Package-Lists "1";
-    APT::Periodic::Download-Upgradeable-Packages "1";
-    APT::Periodic::AutocleanInterval "7";
-    APT::Periodic::Unattended-Upgrade "1";
 
 With that accomplished, it's time to edit another file:
 
@@ -169,18 +216,13 @@ You're free to edit this file as suits your needs. (You may want it to e-mail yo
             // Codename based matching:
             // This will follow the migration of a release through different
             // archives (e.g. from testing to stable and later oldstable).
-          "o=Debian,n=jessie";
-    //      "o=Debian,n=jessie-updates";
-    //      "o=Debian,n=jessie-proposed-updates";
-          "o=Debian,n=jessie,l=Debian-Security";
+            //      "origin=Debian,codename=${distro_codename}-updates";
+            //      "origin=Debian,codename=${distro_codename}-proposed-updates";
+            "origin=Debian,codename=${distro_codename},label=Debian";
+            "origin=Debian,codename=${distro_codename},label=Debian-Security";
+            "origin=Debian,codename=${distro_codename}-security,label=Debian-Security";
 
-The above will ensure that all of your stable packages are up-to-date, and that any security patches are installed.
-
-Want a real adventure?
-----------------------
-
--   sudo apt-get install bsdgames
--   adventure
+The above will ensure that all of your stable packages are up-to-date, and that any security patches are installed. You may have good reason to wait on stable packages, but consider whether there's a benefit to delaying security patches.  Also, look through the rest of that file to find options to handle automatic reboots or reloads!
 
 External Links
 --------------

@@ -8,4 +8,6 @@ parent: Server Security
 
 ## Fail2ban
 
-Coming soon!
+Detailed Entry Coming soon!
+
+In the meantime, [here](https://www.digitalocean.com/community/tutorials/how-fail2ban-works-to-protect-services-on-a-linux-server) is a good overview, and [here](https://www.digitalocean.com/community/tutorials/how-to-protect-ssh-with-fail2ban-on-ubuntu-22-04) are some notes on using Fail2ban to secure SSH.

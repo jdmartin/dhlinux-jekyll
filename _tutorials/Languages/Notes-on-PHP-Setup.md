@@ -14,12 +14,14 @@ First Step
 
 Let's get PHP installed:
 
--   sudo apt-get install php php-pear
+-   sudo apt-get install php8.2 php-pear
 
 Configuring PHP
 ---------------
 
-Let’s use 'sudo nano' to take a look in /etc/php/7.0/apache2/php.ini
+Let’s use 'sudo nano' to take a look in /etc/php/8.2/apache2/php.ini
+
+**N.B.** If you're using this with nginx, or something else, you may want to edit /etc/php/8.2/fpm/php.ini or /etc/php/8.2/cli/php.ini instead.
 
 We want to find and ensure that the following configuration defaults are correctly installed:
 
@@ -42,7 +44,7 @@ Preparing the Environment
 
 If you need support for MySQL in PHP, then you must install the php5-mysql package with the following command:
 
--   sudo apt-get install php5-mysql
+-   sudo apt-get install php8.2-mysql
 
 After making changes to the PHP configuration file, restart Apache by issuing the following command:
 
@@ -51,7 +53,7 @@ After making changes to the PHP configuration file, restart Apache by issuing th
 Testing the Install
 -------------------
 
-With this completed, PHP should be fully functional. Create /var/www/dhsi.dev/public\_html/index.php (N.B. I'm assuming your hostname is dhsi.dev. Change as needed.)
+With this completed, PHP should be fully functional. Create /var/www/test.dev/public\_html/index.php (N.B. I'm assuming your hostname is test.dev. Change as needed.)
 
 ```
 <?php
@@ -59,14 +61,14 @@ With this completed, PHP should be fully functional. Create /var/www/dhsi.dev/pu
 ?>
 ```
 
--   Use Firefox to load <http://dhsi/index.php>
+-   Use Firefox to load <http://test/index.php>
 
 Using PHP By Default
 --------------------
 
 Suppose we wanted to change the default index for our site. Here’s how:
 
--   Let’s cd to /var/www/dhsi.conf/public\_html
+-   Let’s cd to /var/www/test.conf/public\_html
 -   sudo nano .htaccess
 -   DirectoryIndex index.php (Can be whatever)
 -   Save, exit, sudo chown www-data:www-data .htaccess
@@ -86,7 +88,7 @@ Suppose we wanted to change the default index for our site. Here’s how:
     </Directory>
 
 -   sudo service apache2 reload
--   Use Firefox to visit <http://dhsi>
--   Now, use Firefox to visit <http://dhsi/index.html>
+-   Use Firefox to visit <http://test>
+-   Now, use Firefox to visit <http://test/index.html>
 
 Ta-da!
