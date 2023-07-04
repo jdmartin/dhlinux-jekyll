@@ -6,6 +6,8 @@ parent: Web Servers
 <h5>Page Last Updated: {{ page.last_modified_at | date: '%Y %B %d' }}</h5>
 <br>
 
+**N.B.** This page is awaiting a revamp as of July '23.
+
 ## Notes on Apache Setup
 
 First Steps:
@@ -23,13 +25,13 @@ Lynx is a beautiful old browser. You’ll love it. Unless you’re a graphic des
 Initial Configuration
 ---------------------
 
-Now, we have to setup our hosts file so that our sites are registered properly with Apache (in these examples, I have chosen the hostname dhsi.dev):
+Now, we have to setup our hosts file so that our sites are registered properly with Apache (in these examples, I have chosen the hostname test.dev):
 
 -   sudo nano /etc/hosts (You should see something like this)
 ```
 127.0.0.1       localhost
-127.0.1.1       dhsi.dev
-127.0.1.1       dhsi.dhsi.dev   dhsi
+127.0.1.1       test.dev
+127.0.1.1       test.test.dev   test
 ```
 Now, let’s configure that server to play nicely with our machine.
 
@@ -56,22 +58,22 @@ Ok, now, let’s go ahead and disable the default site and setup one of our own.
 -   a2dissite 000-default.conf
 -   restart apache
 
-Now, we’re going to need a place to put our files... Let’s use /var/www/dhsi.dev/public\_html (mkdir -p to make a chain of dirs) - We’ll have to make that directory, as it doesn't exist by default. Let's also make /var/www/dhsi.dev/logs
+Now, we’re going to need a place to put our files... Let’s use /var/www/test.dev/public\_html (mkdir -p to make a chain of dirs) - We’ll have to make that directory, as it doesn't exist by default. Let's also make /var/www/test.dev/logs
 
-Now, let’s make /etc/apache2/sites-available/dhsi.conf
+Now, let’s make /etc/apache2/sites-available/test.conf
 
 ```
 <VirtualHost *:80>
     ServerAdmin webmaster@localhost
-    ServerName dhsi.dev
-    ServerAlias www.dhsi.dev
-    DocumentRoot /var/www/dhsi.dev/public_html
-    ErrorLog /var/www/dhsi.dev/logs/error.log
-    CustomLog /var/www/dhsi.dev/logs/access.log combined
+    ServerName test.dev
+    ServerAlias www.test.dev
+    DocumentRoot /var/www/test.dev/public_html
+    ErrorLog /var/www/test.dev/logs/error.log
+    CustomLog /var/www/test.dev/logs/access.log combined
 </VirtualHost>
 ```
 -   Now, you're ready to enable your site.
-    -   sudo a2ensite dhsi.conf (This step takes the name of your conf file as an argument.)
+    -   sudo a2ensite test.conf (This step takes the name of your conf file as an argument.)
     -   restart apache
 
 See also:
