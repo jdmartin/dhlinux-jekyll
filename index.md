@@ -14,6 +14,7 @@ Tutorials
 ----
 
 -   [Tutorials and Setup Guides](tutorials/Tutorials-and-Setup-Guides/)
+-   [Ten-Minute Quickstart](tutorials/QuickStart)
 
 Projects you might try
 ----------------------

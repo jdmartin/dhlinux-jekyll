@@ -244,405 +244,419 @@
     
     "relUrl": "/tutorials/Languages/Notes-on-PHPMyAdmin-Setup/"
   },"35": {
+    "doc": "QuickStart",
+    "title": "Ten-Minute QuickStart Guide",
+    "content": "Hey, friend. If you’re here, I’m assuming you want to build a baseline, secure server quickly. Let’s talk about the absolute basics that I undertake when installing Debian (or Debian-based linuxes). General Tips and Advice: . | Make sure you have documentation for any custom configuration changes you make. You’ll be thankful later when you’re trying to figure out why you added “this weird thing” to “this weird config file.” | Develop a backup strategy. We’ll talk about this elsewhere in the wiki, but here’s a good resource to get you started. | . Steps to achieve a baseline of security: . | Patch. Run: apt-get update; apt-get upgrade | Turn on unattended-upgrades. (See the bottom of this similar entry.) | Turn on needrestart. Run: apt-get install needrestart. | Restart if needed. | Turn on your firewall. (See this entry on iptables.) | . And that’s honestly it. From here, you can start thinking about the different services you want to run, or the types of users who might need to access your system (and how to securely achieve this). For me, personally, I would recommend something like this: . | Setup fail2ban. | Install and configure my services. | Consider something like Tailscale or Teleport so that I can close my SSH port. | Have fun! | . ",
+    "url": "/tutorials/QuickStart/#ten-minute-quickstart-guide",
+    
+    "relUrl": "/tutorials/QuickStart/#ten-minute-quickstart-guide"
+  },"36": {
+    "doc": "QuickStart",
+    "title": "QuickStart",
+    "content": "Page Last Updated: 2023 July 08 . ",
+    "url": "/tutorials/QuickStart/",
+    
+    "relUrl": "/tutorials/QuickStart/"
+  },"37": {
     "doc": "Fail2ban",
     "title": "Fail2ban",
     "content": "Detailed Entry Coming soon! . In the meantime, here is a good overview, and here are some notes on using Fail2ban to secure SSH. ",
     "url": "/tutorials/Server%20Security/Fail2ban/#fail2ban",
     
     "relUrl": "/tutorials/Server%20Security/Fail2ban/#fail2ban"
-  },"36": {
+  },"38": {
     "doc": "Fail2ban",
     "title": "Fail2ban",
     "content": "Page Last Updated: 2023 July 03 . ",
     "url": "/tutorials/Server%20Security/Fail2ban/",
     
     "relUrl": "/tutorials/Server%20Security/Fail2ban/"
-  },"37": {
+  },"39": {
     "doc": "Iptables",
     "title": "Iptables",
     "content": "(N.B. You might be on a newer system that requires nftables, click on nftables on the left-hand menu to see how to handle this.) . iptables is used for packet filtering and NAT, and is a standard part of modern Linux firewalling. It is an alternative to UFW and PF, which do the same work in different ways. Let’s look at how to get started. ",
     "url": "/tutorials/Server%20Security/Iptables/#iptables",
     
     "relUrl": "/tutorials/Server%20Security/Iptables/#iptables"
-  },"38": {
+  },"40": {
     "doc": "Iptables",
     "title": "Installation",
     "content": "iptables comes in both ipv4 and ipv6 flavors. Let’s begin with ipv4. The tools necessary to create a firewall with iptables are already installed on your Debian box. So, begin by creating a file to house your rules. sudo touch /etc/iptables.rules . ",
     "url": "/tutorials/Server%20Security/Iptables/#installation",
     
     "relUrl": "/tutorials/Server%20Security/Iptables/#installation"
-  },"39": {
+  },"41": {
     "doc": "Iptables",
     "title": "Using iptables",
     "content": "While iptables rules can be added and removed from the command line (more on that here), it’s often easier to keep your ruleset in a file that can be loaded as needed. So, let’s open the file you just created: . sudo nano /etc/iptables.rules . Here’s mine for reference. Use the comments to decide what rules are useful to you. Your needs/ports may vary, but here’s some of what I use for speed and security. *filter :INPUT DROP [0:0] :FORWARD DROP [0:0] :OUTPUT ACCEPT [86:13587] :ICMP_IN - [0:0] :TCP - [0:0] :UDP - [0:0] -A INPUT -m conntrack --ctstate RELATED,ESTABLISHED -j ACCEPT -A INPUT -i lo -j ACCEPT -A INPUT -d 127.0.0.0/8 ! -i lo -j REJECT --reject-with icmp-port-unreachable -A INPUT -p tcp -m tcp --tcp-flags FIN,SYN,RST,ACK SYN -m conntrack --ctstate NEW -j TCP -A INPUT -p udp -m conntrack --ctstate NEW -j UDP -A INPUT -p icmp -m conntrack --ctstate NEW -j ICMP_IN -A INPUT -m limit --limit 50/min -j LOG --log-prefix \"iptables denied: \" --log-level 7 -A OUTPUT -o eth0 -p icmp -m icmp --icmp-type 8 -m conntrack --ctstate NEW -j ACCEPT -A ICMP_IN -i eth0 -p icmp -m icmp --icmp-type 8 -j DROP -A ICMP_IN -i eth0 -p icmp -m icmp --icmp-type 0 -m conntrack --ctstate RELATED,ESTABLISHED -j ACCEPT -A ICMP_IN -i eth0 -p icmp -m icmp --icmp-type 3 -m conntrack --ctstate RELATED,ESTABLISHED -j ACCEPT -A ICMP_IN -i eth0 -p icmp -m icmp --icmp-type 11 -m conntrack --ctstate RELATED,ESTABLISHED -j ACCEPT -A ICMP_IN -p icmp -m limit --limit 6/sec --limit-burst 1 -j ACCEPT -A ICMP_IN -p icmp -j LOG --log-prefix \"ICMP denied: \" --log-level 7 -A ICMP_IN -p icmp -j REJECT --reject-with icmp-proto-unreachable -A TCP -p tcp --dport 22 -m comment --comment SSH -j ACCEPT -A TCP -p tcp -m multiport --dports 80,443 -m comment --comment Web -j ACCEPT -A TCP -p tcp -m multiport --dports 25,587,993 -m comment --comment Mail -j ACCEPT -A TCP -p tcp -j LOG --log-prefix \"TCP denied: \" --log-level 7 -A TCP -p tcp -j REJECT --reject-with tcp-reset -A UDP -p udp -j LOG --log-prefix \"UDP denied: \" --log-level 7 -A UDP -p udp -j REJECT --reject-with icmp-port-unreachable COMMIT *mangle :PREROUTING ACCEPT [40:2858] :INPUT ACCEPT [40:2858] :FORWARD ACCEPT [0:0] :OUTPUT ACCEPT [86:13587] :POSTROUTING ACCEPT [86:13587] -A PREROUTING -i eth0 -p tcp -m tcp ! --tcp-flags FIN,SYN,RST,ACK SYN -m conntrack --ctstate NEW -j DROP -A PREROUTING -i eth0 -p tcp -m conntrack --ctstate NEW -m tcpmss ! --mss 536:65535 -j DROP -A PREROUTING -i eth0 -m conntrack --ctstate INVALID -j DROP -A PREROUTING -i eth0 -f -m comment --comment \"Drop Fragments\" -j DROP -A PREROUTING -i eth0 -p tcp -m tcp --tcp-flags FIN,SYN,RST,PSH,ACK,URG NONE -j DROP -A PREROUTING -i eth0 -p tcp -m tcp --tcp-flags FIN,SYN FIN,SYN -j DROP -A PREROUTING -i eth0 -p tcp -m tcp --tcp-flags SYN,RST SYN,RST -j DROP -A PREROUTING -i eth0 -p tcp -m tcp --tcp-flags FIN,RST FIN,RST -j DROP -A PREROUTING -i eth0 -p tcp -m tcp --tcp-flags FIN,ACK FIN -j DROP -A PREROUTING -i eth0 -p tcp -m tcp --tcp-flags ACK,URG URG -j DROP -A PREROUTING -i eth0 -p tcp -m tcp --tcp-flags FIN,ACK FIN -j DROP -A PREROUTING -i eth0 -p tcp -m tcp --tcp-flags PSH,ACK PSH -j DROP -A PREROUTING -i eth0 -p tcp -m tcp --tcp-flags FIN,SYN,RST,PSH,ACK,URG FIN,SYN,RST,PSH,ACK,URG -j DROP -A PREROUTING -i eth0 -p tcp -m tcp --tcp-flags FIN,SYN,RST,PSH,ACK,URG NONE -j DROP -A PREROUTING -i eth0 -p tcp -m tcp --tcp-flags FIN,SYN,RST,PSH,ACK,URG FIN,PSH,URG -j DROP -A PREROUTING -i eth0 -p tcp -m tcp --tcp-flags FIN,SYN,RST,PSH,ACK,URG FIN,SYN,PSH,URG -j DROP -A PREROUTING -i eth0 -p tcp -m tcp --tcp-flags FIN,SYN,RST,PSH,ACK,URG FIN,SYN,RST,ACK,URG -j DROP COMMIT . Once you’ve got your iptables.rules file the way you want it, go ahead and activate those rules: . sudo iptables-restore &lt; /etc/iptables.rules #If you're using fail2ban, you'll need to restart it here: sudo /etc/init.d/fail2ban restart #Then, to confirm that your rules are working: sudo iptables -L -n . ",
     "url": "/tutorials/Server%20Security/Iptables/#using-iptables",
     
     "relUrl": "/tutorials/Server%20Security/Iptables/#using-iptables"
-  },"40": {
+  },"42": {
     "doc": "Iptables",
     "title": "Final Steps",
     "content": "Of course, these rules aren’t very useful if they aren’t loaded when you reboot your server. Let’s make sure they are by adding a command to load them to your machine’s boot process: . su apt-get install netfilter-persistent . Follow the prompts, and your firewall should reload when you reboot. If this approach doesn’t work, you could try: . su nano /etc/network/if-pre-up.d/firewall . Now, add these lines to your file and save: . #!/bin/sh /sbin/iptables-restore &lt; /etc/iptables.rules . That’s it! . ",
     "url": "/tutorials/Server%20Security/Iptables/#final-steps",
     
     "relUrl": "/tutorials/Server%20Security/Iptables/#final-steps"
-  },"41": {
+  },"43": {
     "doc": "Iptables",
     "title": "See also:",
     "content": "Guide to setting up ip6tables . ",
     "url": "/tutorials/Server%20Security/Iptables/#see-also",
     
     "relUrl": "/tutorials/Server%20Security/Iptables/#see-also"
-  },"42": {
+  },"44": {
     "doc": "Iptables",
     "title": "Iptables",
     "content": "Page Last Updated: 2023 July 03 . ",
     "url": "/tutorials/Server%20Security/Iptables/",
     
     "relUrl": "/tutorials/Server%20Security/Iptables/"
-  },"43": {
+  },"45": {
     "doc": "Server Security",
     "title": "Server Security",
     "content": " ",
     "url": "/tutorials/Server%20Security/ServerSec/",
     
     "relUrl": "/tutorials/Server%20Security/ServerSec/"
-  },"44": {
+  },"46": {
     "doc": "Overview",
     "title": "Overview",
     "content": "This article contains links to the various tutorials and prezi presentations on this site. ",
     "url": "/tutorials/Tutorials-and-Setup-Guides/#overview",
     
     "relUrl": "/tutorials/Tutorials-and-Setup-Guides/#overview"
-  },"45": {
+  },"47": {
     "doc": "Overview",
     "title": "Installation Tutorials",
     "content": ". | Notes on VirtualBox and Debian Setup | Notes on Post-Debian Installation | Notes on Apache Setup | Notes on Nginx Setup | Notes on MariaDB Setup | Notes on PHP Setup | Notes on PHPMyAdmin Setup | . ",
     "url": "/tutorials/Tutorials-and-Setup-Guides/#installation-tutorials",
     
     "relUrl": "/tutorials/Tutorials-and-Setup-Guides/#installation-tutorials"
-  },"46": {
+  },"48": {
     "doc": "Overview",
     "title": "Notes on Tools",
     "content": ". | Cron | iptables (Firewall) | Fail2ban | . ",
     "url": "/tutorials/Tutorials-and-Setup-Guides/#notes-on-tools",
     
     "relUrl": "/tutorials/Tutorials-and-Setup-Guides/#notes-on-tools"
-  },"47": {
+  },"49": {
     "doc": "Overview",
     "title": "Video Tutorials",
     "content": ". | Installing MAMP | BASH Tutorial - DHSI 2014, Jon Martin | . ",
     "url": "/tutorials/Tutorials-and-Setup-Guides/#video-tutorials",
     
     "relUrl": "/tutorials/Tutorials-and-Setup-Guides/#video-tutorials"
-  },"48": {
+  },"50": {
     "doc": "Overview",
     "title": "Prezis",
     "content": ". | History of Linux | Using BASH and the Command Line | Installing VirtualBox and Debian Linux | Overview of the Apache Web Server | Overview of the MariaDB Server (Also contains PHPMyAdmin setup) | . ",
     "url": "/tutorials/Tutorials-and-Setup-Guides/#prezis",
     
     "relUrl": "/tutorials/Tutorials-and-Setup-Guides/#prezis"
-  },"49": {
+  },"51": {
     "doc": "Overview",
     "title": "Overview",
     "content": "Page Last Updated: 2023 June 07 . ",
     "url": "/tutorials/Tutorials-and-Setup-Guides/",
     
     "relUrl": "/tutorials/Tutorials-and-Setup-Guides/"
-  },"50": {
+  },"52": {
     "doc": "Apache Setup",
     "title": "Notes on Apache Setup",
     "content": " ",
     "url": "/tutorials/Web/Notes-on-Apache-Setup/#notes-on-apache-setup",
     
     "relUrl": "/tutorials/Web/Notes-on-Apache-Setup/#notes-on-apache-setup"
-  },"51": {
+  },"53": {
     "doc": "Apache Setup",
     "title": "First Steps:",
     "content": "We’ll need something to test with later on. Let’s ‘sudo apt-get install lynx.’ . Lynx is a beautiful old browser. You’ll love it. Unless you’re a graphic designer, in which case it hates you, and you it. | Do apt-get update and upgrade | sudo apt-get install apache2 | A lot of applications use apache’s ‘rewrite’ capability. Let’s make sure that’s on: sudo a2enmod rewrite | Restart in the manner it asks, but use sudo! | . ",
     "url": "/tutorials/Web/Notes-on-Apache-Setup/#first-steps",
     
     "relUrl": "/tutorials/Web/Notes-on-Apache-Setup/#first-steps"
-  },"52": {
+  },"54": {
     "doc": "Apache Setup",
     "title": "Initial Configuration",
     "content": "Now, we have to setup our hosts file so that our sites are registered properly with Apache (in these examples, I have chosen the hostname test.dev): . | sudo nano /etc/hosts (You should see something like this) 127.0.0.1       localhost 127.0.1.1       test.dev 127.0.1.1       test.test.dev   test . Now, let’s configure that server to play nicely with our machine. | Go ahead and use sudo nano to open /etc/apache2/apache2.conf - This is a file you won’t have permissions to… | Scroll down to the bottom of the file. Add a line of blank space, then this: (Note: BE SUPER CAREFUL WITH WHITESPACE!) . # User Customization &lt;IfModule mpm_prefork_module&gt; StartServers 2 MinSpareServers 6 MaxSpareServers 12 MaxClients 30 MaxRequestsPerChild 3000 &lt;/IfModule&gt; . | Save, open terminal, sudo service apache2 restart | . ",
     "url": "/tutorials/Web/Notes-on-Apache-Setup/#initial-configuration",
     
     "relUrl": "/tutorials/Web/Notes-on-Apache-Setup/#initial-configuration"
-  },"53": {
+  },"55": {
     "doc": "Apache Setup",
     "title": "Setup a Virtual Host",
     "content": "Ok, now, let’s go ahead and disable the default site and setup one of our own. | a2dissite 000-default.conf | restart apache | . Now, we’re going to need a place to put our files… Let’s use /var/www/test.dev/public_html (mkdir -p to make a chain of dirs) - We’ll have to make that directory, as it doesn’t exist by default. Let’s also make /var/www/test.dev/logs . Now, let’s make /etc/apache2/sites-available/test.conf . &lt;VirtualHost *:80&gt;     ServerAdmin webmaster@localhost     ServerName test.dev     ServerAlias www.test.dev     DocumentRoot /var/www/test.dev/public_html     ErrorLog /var/www/test.dev/logs/error.log     CustomLog /var/www/test.dev/logs/access.log combined &lt;/VirtualHost&gt; . | Now, you’re ready to enable your site. | sudo a2ensite test.conf (This step takes the name of your conf file as an argument.) | restart apache | . | . ",
     "url": "/tutorials/Web/Notes-on-Apache-Setup/#setup-a-virtual-host",
     
     "relUrl": "/tutorials/Web/Notes-on-Apache-Setup/#setup-a-virtual-host"
-  },"54": {
+  },"56": {
     "doc": "Apache Setup",
     "title": "See also:",
     "content": ". | PHP | MariaDB | . ",
     "url": "/tutorials/Web/Notes-on-Apache-Setup/#see-also",
     
     "relUrl": "/tutorials/Web/Notes-on-Apache-Setup/#see-also"
-  },"55": {
+  },"57": {
     "doc": "Apache Setup",
     "title": "Apache Setup",
     "content": "Page Last Updated: 2023 July 03 . N.B. This page is awaiting a revamp as of July ‘23. ",
     "url": "/tutorials/Web/Notes-on-Apache-Setup/",
     
     "relUrl": "/tutorials/Web/Notes-on-Apache-Setup/"
-  },"56": {
+  },"58": {
     "doc": "Nginx Setup",
     "title": "Notes on Nginx Setup",
     "content": " ",
     "url": "/tutorials/Web/Notes-on-Nginx-Setup/#notes-on-nginx-setup",
     
     "relUrl": "/tutorials/Web/Notes-on-Nginx-Setup/#notes-on-nginx-setup"
-  },"57": {
+  },"59": {
     "doc": "Nginx Setup",
     "title": "First Steps",
     "content": "Installing Nginx (pronounced “engine-X”) is pretty straightforward. Assuming we don’t need to set any unusual configuration options, the Debian package is the easiest way to get started. To do this: . | sudo apt-get install nginx | . Having done that, let’s make sure we have backup copies of our configuration files in case something goes wrong: . sudo cp /etc/nginx/nginx.conf /etc/nginx/nginx.conf.backup #Or, for a fancier version that preserves the date as part of the filename: sudo cp /etc/nginx/nginx.conf /etc/nginx/nginx.conf.$(date \"+%b_%d_%Y_%H.%M.%S\") . ",
     "url": "/tutorials/Web/Notes-on-Nginx-Setup/#first-steps",
     
     "relUrl": "/tutorials/Web/Notes-on-Nginx-Setup/#first-steps"
-  },"58": {
+  },"60": {
     "doc": "Nginx Setup",
     "title": "Nginx Configuration",
     "content": "While this section is developed, there is an excellent guide for nginx on Debian Jessie here. ",
     "url": "/tutorials/Web/Notes-on-Nginx-Setup/#nginx-configuration",
     
     "relUrl": "/tutorials/Web/Notes-on-Nginx-Setup/#nginx-configuration"
-  },"59": {
+  },"61": {
     "doc": "Nginx Setup",
     "title": "Setting up for PHP and MySQL/MariaDB support",
     "content": "Nginx is lightweight and modular. As such, certain features that are standard on Apache need to be enabled. Let’s see some more notes on PHP and Database setup here. ",
     "url": "/tutorials/Web/Notes-on-Nginx-Setup/#setting-up-for-php-and-mysqlmariadb-support",
     
     "relUrl": "/tutorials/Web/Notes-on-Nginx-Setup/#setting-up-for-php-and-mysqlmariadb-support"
-  },"60": {
+  },"62": {
     "doc": "Nginx Setup",
     "title": "Optimizing for Speed",
     "content": "Nginx is pretty fast, but we can always do better. Let’s look at this guide. ",
     "url": "/tutorials/Web/Notes-on-Nginx-Setup/#optimizing-for-speed",
     
     "relUrl": "/tutorials/Web/Notes-on-Nginx-Setup/#optimizing-for-speed"
-  },"61": {
+  },"63": {
     "doc": "Nginx Setup",
     "title": "Nginx Setup",
     "content": "Page Last Updated: 2023 July 03 . N.B. This page is awaiting a revamp as of July ‘23. ",
     "url": "/tutorials/Web/Notes-on-Nginx-Setup/",
     
     "relUrl": "/tutorials/Web/Notes-on-Nginx-Setup/"
-  },"62": {
+  },"64": {
     "doc": "Web Servers",
     "title": "Web Servers",
     "content": " ",
     "url": "/tutorials/Web/WebServers/",
     
     "relUrl": "/tutorials/Web/WebServers/"
-  },"63": {
+  },"65": {
     "doc": "Projects",
     "title": "Projects",
     "content": "Here are some things you might want to try, now that you’ve got your Linux box up and running: . Install A CMS / Publishing Platform . | Install Wordpress | Install Drupal | Install Omeka | . Install a Web Framework . | Install Django | Install Ruby on Rails | Install Laravel | . N.B. If you want to install more than one of those (and why not?), you might want to learn about how to host multiple sites that are being served by different domain names. This is where the concept of Virtual Hosts comes in. If you want to try this, remember that you can make up your own names in your hosts file (this is step 5 in that previous link). I often use a name like this on my home network: someName.local. You are, of course, encouraged to be creative. :) . Other Fun Programming Things . | Install node.js (Install node.js on Debian – ask about a fun caveat…) . | Try Nodeschool for all sorts of skills | . | Take the Command Line Challenge | Why not learn more about BASH? (You can make useful scripts for any system that runs BASH. That could be Linux, Unix, Mac, or even Windows!) | Another BASH tutorial | . Install an XML Database / Tool . | Install eXist-db | Install BaseX (Hint: There’s an apt version, too.) | . Anything Else . There are thousands and thousands of things to try… pick any program you like and see how it works. Part of the fun of this is breaking stuff. ;) . ",
     "url": "/projects/Projects/#projects",
     
     "relUrl": "/projects/Projects/#projects"
-  },"64": {
+  },"66": {
     "doc": "Projects",
     "title": "Projects",
     "content": "Page Last Updated: 2023 June 10 . | Install A CMS / Publishing Platform | Install a Web Framework | Other Fun Programming Things | Install an XML Database / Tool | Anything Else | . ",
     "url": "/projects/Projects/",
     
     "relUrl": "/projects/Projects/"
-  },"65": {
+  },"67": {
     "doc": "Apache",
     "title": "Apache",
     "content": "Apache is a Web Server created by the Apache Software Foundation. It represents the ‘A’ in the LAMP Stack . ",
     "url": "/docs/Apache/#apache",
     
     "relUrl": "/docs/Apache/#apache"
-  },"66": {
+  },"68": {
     "doc": "Apache",
     "title": "See Also:",
     "content": ". | Overview of the History of Apache - DHSI 2015, Jon Martin | Notes on Apache Setup | PHP | . ",
     "url": "/docs/Apache/#see-also",
     
     "relUrl": "/docs/Apache/#see-also"
-  },"67": {
+  },"69": {
     "doc": "Apache",
     "title": "Apache",
     "content": "Page Last Updated: 2023 June 07 . ",
     "url": "/docs/Apache/",
     
     "relUrl": "/docs/Apache/"
-  },"68": {
+  },"70": {
     "doc": "BASH",
     "title": "BASH",
     "content": "BASH (Bourne Again Shell) is a command processor for interacting with the Linux kernel. It is sometimes referred to as ‘the command line,’ colloquially, but is really one of many possible shells. ",
     "url": "/docs/BASH/#bash",
     
     "relUrl": "/docs/BASH/#bash"
-  },"69": {
+  },"71": {
     "doc": "BASH",
     "title": "See also:",
     "content": ". | Tutorial on BASH and the Command Line - DHSI 2015, Jon Martin | Explain Shell! | An Introduction to Linux I/O Redirection | Advanced Bash Scripting Guide: Exit Codes With Special Meanings | Keynote from BSDCan 2015: Stephen Bourne, “Early Days of Unix and Design of sh” - YouTube | . ",
     "url": "/docs/BASH/#see-also",
     
     "relUrl": "/docs/BASH/#see-also"
-  },"70": {
+  },"72": {
     "doc": "BASH",
     "title": "BASH",
     "content": "Page Last Updated: 2023 June 07 . ",
     "url": "/docs/BASH/",
     
     "relUrl": "/docs/BASH/"
-  },"71": {
+  },"73": {
     "doc": "LAMP Stack",
     "title": "LAMP Stack",
     "content": "‘LAMP’ is a commonly used acronym for ‘Linux, Apache, MySQL, and PHP.’ . ",
     "url": "/docs/LAMP-Stack/#lamp-stack",
     
     "relUrl": "/docs/LAMP-Stack/#lamp-stack"
-  },"72": {
+  },"74": {
     "doc": "LAMP Stack",
     "title": "See also",
     "content": ". | MAMP (Coming soon…) | . ",
     "url": "/docs/LAMP-Stack/#see-also",
     
     "relUrl": "/docs/LAMP-Stack/#see-also"
-  },"73": {
+  },"75": {
     "doc": "LAMP Stack",
     "title": "LAMP Stack",
     "content": "Page Last Updated: 2023 June 07 . ",
     "url": "/docs/LAMP-Stack/",
     
     "relUrl": "/docs/LAMP-Stack/"
-  },"74": {
+  },"76": {
     "doc": "Linux",
     "title": "Linux",
     "content": "Linux is the name for a class of operating system built on the kernel developed by Linus Torvalds in 1991. It builds on the work done on Unix in the 1970s and ’80s. It is commonly referred to as the ‘L’ in the LAMP Stack. ",
     "url": "/docs/Linux/#linux",
     
     "relUrl": "/docs/Linux/#linux"
-  },"75": {
+  },"77": {
     "doc": "Linux",
     "title": "External Links",
     "content": ". | EdX Course: Introduction to Linux | Why the Name? Debian package names explained. | “Open Source History: Why did Linux Succeed?” | . ",
     "url": "/docs/Linux/#external-links",
     
     "relUrl": "/docs/Linux/#external-links"
-  },"76": {
+  },"78": {
     "doc": "Linux",
     "title": "Linux",
     "content": "Page Last Updated: 2023 June 07 . ",
     "url": "/docs/Linux/",
     
     "relUrl": "/docs/Linux/"
-  },"77": {
+  },"79": {
     "doc": "MySQL",
     "title": "MariaDB (also MySQL)",
     "content": "MariaDB is a relational database that uses the SQL language. It is a drop-in, open-source replacement for MySQL. It represents the ‘M’ in the LAMP Stack. ",
     "url": "/docs/MySQL/#mariadb-also-mysql",
     
     "relUrl": "/docs/MySQL/#mariadb-also-mysql"
-  },"78": {
+  },"80": {
     "doc": "MySQL",
     "title": "See Also:",
     "content": ". | Overview of the MariaDB Server | Notes on MariaDB Setup | . ",
     "url": "/docs/MySQL/#see-also",
     
     "relUrl": "/docs/MySQL/#see-also"
-  },"79": {
+  },"81": {
     "doc": "MySQL",
     "title": "External Links:",
     "content": ". | MariaDB.org | sqlteaching.com | Introduction to Databases - Stanford | . ",
     "url": "/docs/MySQL/#external-links",
     
     "relUrl": "/docs/MySQL/#external-links"
-  },"80": {
+  },"82": {
     "doc": "MySQL",
     "title": "MySQL",
     "content": "Page Last Updated: 2023 June 07 . ",
     "url": "/docs/MySQL/",
     
     "relUrl": "/docs/MySQL/"
-  },"81": {
+  },"83": {
     "doc": "PHP",
     "title": "PHP",
     "content": "PHP is a server-side scripting language that is commonly found in projects like WordPress, Drupal, and Omeka. It represents the ‘P’ in the LAMP Stack. ",
     "url": "/docs/PHP/#php",
     
     "relUrl": "/docs/PHP/#php"
-  },"82": {
+  },"84": {
     "doc": "PHP",
     "title": "See also:",
     "content": "Notes on PHP Setup . ",
     "url": "/docs/PHP/#see-also",
     
     "relUrl": "/docs/PHP/#see-also"
-  },"83": {
+  },"85": {
     "doc": "PHP",
     "title": "External links:",
     "content": "PHP.net . ",
     "url": "/docs/PHP/#external-links",
     
     "relUrl": "/docs/PHP/#external-links"
-  },"84": {
+  },"86": {
     "doc": "PHP",
     "title": "PHP",
     "content": "Page Last Updated: 2023 June 07 . ",
     "url": "/docs/PHP/",
     
     "relUrl": "/docs/PHP/"
-  },"85": {
+  },"87": {
     "doc": "Unix",
     "title": "Unix",
     "content": "Unix is an Operating System invented by Ken Thompson and Dennis Ritchie at AT&amp;T’s Bell Labs in 1970. It remains the inspiration for the Linux Operating System. ",
     "url": "/docs/Unix/#unix",
     
     "relUrl": "/docs/Unix/#unix"
-  },"86": {
+  },"88": {
     "doc": "Unix",
     "title": "External Links",
     "content": ". | Prezi: History of Linux | “BSD Unix: Power to the people, from the code,” Salon | “Understanding the bin, sbin, usr/bin, usr/sbin Split,” Hacker Monthly | Basics of the Unix Philosophy, Eric Raymond, catb.org | Keynote from BSDCan 2015: Stephen Bourne, “Early Days of Unix and Design of sh” - YouTube | . ",
     "url": "/docs/Unix/#external-links",
     
     "relUrl": "/docs/Unix/#external-links"
-  },"87": {
+  },"89": {
     "doc": "Unix",
     "title": "Unix",
     "content": "Page Last Updated: 2023 June 07 . ",
     "url": "/docs/Unix/",
     
     "relUrl": "/docs/Unix/"
-  },"88": {
+  },"90": {
     "doc": "VirtualBox",
     "title": "VirtualBox",
     "content": "VirtualBox is a program from Oracle that allows for the creation of a virtual machine. ",
     "url": "/docs/VirtualBox/#virtualbox",
     
     "relUrl": "/docs/VirtualBox/#virtualbox"
-  },"89": {
+  },"91": {
     "doc": "VirtualBox",
     "title": "See also",
     "content": "Tutorials . ",
     "url": "/docs/VirtualBox/#see-also",
     
     "relUrl": "/docs/VirtualBox/#see-also"
-  },"90": {
+  },"92": {
     "doc": "VirtualBox",
     "title": "External Links",
     "content": "Slideshow on setting up Debian Linux and VirtualBox - Jon Martin, DHSI 2015 . ",
     "url": "/docs/VirtualBox/#external-links",
     
     "relUrl": "/docs/VirtualBox/#external-links"
-  },"91": {
+  },"93": {
     "doc": "VirtualBox",
     "title": "VirtualBox",
     "content": "Page Last Updated: 2023 June 07 . ",
     "url": "/docs/VirtualBox/",
     
     "relUrl": "/docs/VirtualBox/"
-  },"92": {
+  },"94": {
     "doc": "Web Servers",
     "title": "Web Servers",
     "content": " ",
