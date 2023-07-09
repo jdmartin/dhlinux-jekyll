@@ -8,7 +8,7 @@ has_children: false
 <br>
 ## Ten-Minute QuickStart Guide
 
-Hey, friend.  If you're here, I'm assuming you want to build a baseline, secure server quickly. Let's talk about the absolute basics that I undertake when installing Debian (or Debian-based linuxes).
+Hey, friend.  If you're here, I'm assuming you want to build a secure server quickly. Let's talk about the absolute basics that I undertake when installing Debian (or Debian-based linuxes).
 
 ### General Tips and Advice:
 - Make sure you have documentation for any custom configuration changes you make. You'll be thankful later when you're trying to figure out why you added "this weird thing" to "this weird config file."
