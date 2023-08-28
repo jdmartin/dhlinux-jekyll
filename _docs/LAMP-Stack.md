@@ -1,9 +1,8 @@
 ---
 layout: default
 title: LAMP Stack
-last_modified_date: 2021-10-28 15:32:00 -0800
 ---
-<h5>Page Last Updated: {{ page.last_modified_at | date: '%Y %B %d' }}</h5>
+_Page Last Updated: {{ page.date | date: '%Y %B %d' }}_
 <br>
 
 ## LAMP Stack

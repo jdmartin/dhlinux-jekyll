@@ -4,7 +4,7 @@ title: Overview
 nav_order: 1
 has_children: false
 ---
-<h5>Page Last Updated: {{ page.last_modified_at | date: '%Y %B %d' }}</h5>
+_Page Last Updated: {{ page.date | date: '%Y %B %d' }}_
 <br>
 
 ## Overview

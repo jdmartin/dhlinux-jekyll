@@ -8,7 +8,6 @@ layout: default
     <h2 class="index-title">Welcome to the DHLinux Wiki!</h2>
 </div>
 
-<h5>Page Last Updated: {{ page.last_modified_at | date: '%Y %B %d' }}</h5>
 
 Tutorials
 ----

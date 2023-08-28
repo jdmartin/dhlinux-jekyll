@@ -4,7 +4,7 @@ title: PHPMyAdmin Setup
 parent: Languages
 nav_order: 2
 ---
-<h5>Page Last Updated: {{ page.last_modified_at | date: '%Y %B %d' }}</h5>
+_Page Last Updated: {{ page.date | date: '%Y %B %d' }}_
 <br>
 
 ## Notes on PHPMyAdmin Setup

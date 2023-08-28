@@ -3,7 +3,7 @@ layout: default
 title: Apache Setup
 parent: Web Servers
 ---
-<h5>Page Last Updated: {{ page.last_modified_at | date: '%Y %B %d' }}</h5>
+_Page Last Updated: {{ page.date | date: '%Y %B %d' }}_
 <br>
 
 **N.B.** This page is awaiting a revamp as of July '23.

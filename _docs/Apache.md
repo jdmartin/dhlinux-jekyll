@@ -4,7 +4,7 @@ title: Apache
 parent: Web Servers
 nav_order: 1
 ---
-<h5>Page Last Updated: {{ page.last_modified_at | date: '%Y %B %d' }}</h5>
+_Page Last Updated: {{ page.date | date: '%Y %B %d' }}_
 <br>
 <span property="article:published_time"></span>
 ## Apache
