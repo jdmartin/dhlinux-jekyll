@@ -101,3 +101,5 @@ exclude:
   - vendor/ruby/
   - build-dev.sh
   - build-prod.sh
+  - jekyll-dev.sh
+  - jekyll-prod.sh
