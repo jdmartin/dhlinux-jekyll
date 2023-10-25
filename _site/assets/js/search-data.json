@@ -22,7 +22,7 @@
   },"3": {
     "doc": "Cron",
     "title": "Cron",
-    "content": "Page Last Updated: 2023 August 28 . ",
+    "content": "Page Last Updated: 2023 October 25 . ",
     "url": "/tutorials/Admin/Cron/",
     
     "relUrl": "/tutorials/Admin/Cron/"
@@ -64,7 +64,7 @@
   },"9": {
     "doc": "Post-Debian Installation",
     "title": "Post-Debian Installation",
-    "content": "Page Last Updated: 2023 August 28 . ",
+    "content": "Page Last Updated: 2023 October 25 . ",
     "url": "/tutorials/Admin/Notes-on-Post-Debian-Installation/",
     
     "relUrl": "/tutorials/Admin/Notes-on-Post-Debian-Installation/"
@@ -106,7 +106,7 @@
   },"15": {
     "doc": "VirtualBox and Debian Setup",
     "title": "VirtualBox and Debian Setup",
-    "content": "Page Last Updated: 2023 August 28 . ",
+    "content": "Page Last Updated: 2023 October 25 . ",
     "url": "/tutorials/Admin/Notes-on-VirtualBox-and-Debian-Setup/",
     
     "relUrl": "/tutorials/Admin/Notes-on-VirtualBox-and-Debian-Setup/"
@@ -148,7 +148,7 @@
   },"21": {
     "doc": "MariaDB/MySQL Setup",
     "title": "MariaDB/MySQL Setup",
-    "content": "Page Last Updated: 2023 August 28 . ",
+    "content": "Page Last Updated: 2023 October 25 . ",
     "url": "/tutorials/Databases/Notes-on-MariaDB-Setup/",
     
     "relUrl": "/tutorials/Databases/Notes-on-MariaDB-Setup/"
@@ -204,7 +204,7 @@
   },"29": {
     "doc": "PHP Setup",
     "title": "PHP Setup",
-    "content": "Page Last Updated: 2023 August 28 . ",
+    "content": "Page Last Updated: 2023 October 25 . ",
     "url": "/tutorials/Languages/Notes-on-PHP-Setup/",
     
     "relUrl": "/tutorials/Languages/Notes-on-PHP-Setup/"
@@ -239,7 +239,7 @@
   },"34": {
     "doc": "PHPMyAdmin Setup",
     "title": "PHPMyAdmin Setup",
-    "content": "Page Last Updated: 2023 August 28 . ",
+    "content": "Page Last Updated: 2023 October 25 . ",
     "url": "/tutorials/Languages/Notes-on-PHPMyAdmin-Setup/",
     
     "relUrl": "/tutorials/Languages/Notes-on-PHPMyAdmin-Setup/"
@@ -253,7 +253,7 @@
   },"36": {
     "doc": "QuickStart",
     "title": "QuickStart",
-    "content": "Page Last Updated: 2023 August 28 . ",
+    "content": "Page Last Updated: 2023 October 25 . ",
     "url": "/tutorials/QuickStart/",
     
     "relUrl": "/tutorials/QuickStart/"
@@ -267,7 +267,7 @@
   },"38": {
     "doc": "Fail2ban",
     "title": "Fail2ban",
-    "content": "Page Last Updated: 2023 August 28 . ",
+    "content": "Page Last Updated: 2023 October 25 . ",
     "url": "/tutorials/Server%20Security/Fail2ban/",
     
     "relUrl": "/tutorials/Server%20Security/Fail2ban/"
@@ -309,7 +309,7 @@
   },"44": {
     "doc": "Iptables",
     "title": "Iptables",
-    "content": "Page Last Updated: 2023 August 28 . ",
+    "content": "Page Last Updated: 2023 October 25 . ",
     "url": "/tutorials/Server%20Security/Iptables/",
     
     "relUrl": "/tutorials/Server%20Security/Iptables/"
@@ -358,7 +358,7 @@
   },"51": {
     "doc": "Overview",
     "title": "Overview",
-    "content": "Page Last Updated: 2023 August 28 . ",
+    "content": "Page Last Updated: 2023 October 25 . ",
     "url": "/tutorials/Tutorials-and-Setup-Guides/",
     
     "relUrl": "/tutorials/Tutorials-and-Setup-Guides/"
@@ -400,7 +400,7 @@
   },"57": {
     "doc": "Apache Setup",
     "title": "Apache Setup",
-    "content": "Page Last Updated: 2023 August 28 . N.B. This page is awaiting a revamp as of July ‘23. ",
+    "content": "Page Last Updated: 2023 October 25 . N.B. This page is awaiting a revamp as of July ‘23. ",
     "url": "/tutorials/Web/Notes-on-Apache-Setup/",
     
     "relUrl": "/tutorials/Web/Notes-on-Apache-Setup/"
@@ -442,7 +442,7 @@
   },"63": {
     "doc": "Nginx Setup",
     "title": "Nginx Setup",
-    "content": "Page Last Updated: 2023 August 28 . N.B. This page is awaiting a revamp as of July ‘23. ",
+    "content": "Page Last Updated: 2023 October 25 . N.B. This page is awaiting a revamp as of July ‘23. ",
     "url": "/tutorials/Web/Notes-on-Nginx-Setup/",
     
     "relUrl": "/tutorials/Web/Notes-on-Nginx-Setup/"
@@ -463,7 +463,7 @@
   },"66": {
     "doc": "Projects",
     "title": "Projects",
-    "content": "Page Last Updated: 2023 August 28 . | Install A CMS / Publishing Platform | Install a Web Framework | Other Fun Programming Things | Install an XML Database / Tool | Anything Else | . ",
+    "content": "Page Last Updated: 2023 October 25 . | Install A CMS / Publishing Platform | Install a Web Framework | Other Fun Programming Things | Install an XML Database / Tool | Anything Else | . ",
     "url": "/projects/Projects/",
     
     "relUrl": "/projects/Projects/"
@@ -484,7 +484,7 @@
   },"69": {
     "doc": "Apache",
     "title": "Apache",
-    "content": "Page Last Updated: 2023 August 28 . ",
+    "content": "Page Last Updated: 2023 October 25 . ",
     "url": "/docs/Apache/",
     
     "relUrl": "/docs/Apache/"
@@ -505,7 +505,7 @@
   },"72": {
     "doc": "BASH",
     "title": "BASH",
-    "content": "Page Last Updated: 2023 August 28 . ",
+    "content": "Page Last Updated: 2023 October 25 . ",
     "url": "/docs/BASH/",
     
     "relUrl": "/docs/BASH/"
@@ -526,7 +526,7 @@
   },"75": {
     "doc": "LAMP Stack",
     "title": "LAMP Stack",
-    "content": "Page Last Updated: 2023 August 28 . ",
+    "content": "Page Last Updated: 2023 October 25 . ",
     "url": "/docs/LAMP-Stack/",
     
     "relUrl": "/docs/LAMP-Stack/"
@@ -547,7 +547,7 @@
   },"78": {
     "doc": "Linux",
     "title": "Linux",
-    "content": "Page Last Updated: 2023 August 28 . ",
+    "content": "Page Last Updated: 2023 October 25 . ",
     "url": "/docs/Linux/",
     
     "relUrl": "/docs/Linux/"
@@ -575,7 +575,7 @@
   },"82": {
     "doc": "MySQL",
     "title": "MySQL",
-    "content": "Page Last Updated: 2023 August 28 . ",
+    "content": "Page Last Updated: 2023 October 25 . ",
     "url": "/docs/MySQL/",
     
     "relUrl": "/docs/MySQL/"
@@ -603,7 +603,7 @@
   },"86": {
     "doc": "PHP",
     "title": "PHP",
-    "content": "Page Last Updated: 2023 August 28 . ",
+    "content": "Page Last Updated: 2023 October 25 . ",
     "url": "/docs/PHP/",
     
     "relUrl": "/docs/PHP/"
@@ -624,7 +624,7 @@
   },"89": {
     "doc": "Unix",
     "title": "Unix",
-    "content": "Page Last Updated: 2023 August 28 . ",
+    "content": "Page Last Updated: 2023 October 25 . ",
     "url": "/docs/Unix/",
     
     "relUrl": "/docs/Unix/"
@@ -652,7 +652,7 @@
   },"93": {
     "doc": "VirtualBox",
     "title": "VirtualBox",
-    "content": "Page Last Updated: 2023 August 28 . ",
+    "content": "Page Last Updated: 2023 October 25 . ",
     "url": "/docs/VirtualBox/",
     
     "relUrl": "/docs/VirtualBox/"
