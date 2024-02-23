@@ -48,7 +48,7 @@ For the simplest firewall,
 -   Unlock gufw, enable it, and make sure all incoming is blocked. All outgoing may be allowed.
 -   At this point, you may add any ports you might need by clicking the + at the bottom. (e.g. 80 for HTTP traffic, 443 for HTTPS, etc.) (Hint: You can switch from 'Application' to 'Service' to make a generic rule for a given port...)
 
-For a more hands-on method (and one that allows deeper [Fail2ban](/tutorials/Server%20Security/Fail2ban/ "wikilink") integration, I recommend using an iptables-based firewall. (Details on setting that up are here: [iptables](/tutorials/Server%20Security/Iptables "wikilink"))
+For a more hands-on method (and one that allows deeper [Fail2ban](/tutorials/Server%20Security/Fail2ban) integration, I recommend using an iptables-based firewall. (Details on setting that up are here: [iptables](/tutorials/Server%20Security/Iptables))
 
 Intrusion Detection and Mitigation
 ----------------------------------
@@ -61,7 +61,7 @@ Installation is very simple:
 
     sudo apt-get install fail2ban
 
-We'll look at some customization options in the article on [Fail2ban](/tutorials/Server%20Security/Fail2ban "wikilink").
+We'll look at some customization options in the article on [Fail2ban](/tutorials/Server%20Security/Fail2ban).
 
 -   [Useful Guide for Debian 7... still works!](https://www.digitalocean.com/community/tutorials/how-to-protect-ssh-with-fail2ban-on-debian-7)
 
