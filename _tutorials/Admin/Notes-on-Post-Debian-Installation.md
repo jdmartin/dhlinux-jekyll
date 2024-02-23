@@ -48,7 +48,7 @@ For the simplest firewall,
 -   Unlock gufw, enable it, and make sure all incoming is blocked. All outgoing may be allowed.
 -   At this point, you may add any ports you might need by clicking the + at the bottom. (e.g. 80 for HTTP traffic, 443 for HTTPS, etc.) (Hint: You can switch from 'Application' to 'Service' to make a generic rule for a given port...)
 
-For a more hands-on method (and one that allows deeper [Fail2ban](../../Server Security/Fail2ban/ "wikilink") integration, I recommend using an iptables-based firewall. (Details on setting that up are here: [iptables](../../Server Security/iptables "wikilink"))
+For a more hands-on method (and one that allows deeper [Fail2ban](/tutorials/Server%20Security/Fail2ban/ "wikilink") integration, I recommend using an iptables-based firewall. (Details on setting that up are here: [iptables](/tutorials/Server%20Security/Iptables "wikilink"))
 
 Intrusion Detection and Mitigation
 ----------------------------------
@@ -61,13 +61,13 @@ Installation is very simple:
 
     sudo apt-get install fail2ban
 
-We'll look at some customization options in the article on [Fail2ban](../Fail2ban "wikilink").
+We'll look at some customization options in the article on [Fail2ban](/tutorials/Server%20Security/Fail2ban "wikilink").
 
 -   [Useful Guide for Debian 7... still works!](https://www.digitalocean.com/community/tutorials/how-to-protect-ssh-with-fail2ban-on-debian-7)
 
 ### Securing SSH
 
-Unless you have a strong desire to have your server broken into, you're going to access your server via [SSH](SSH "wikilink")/[SFTP](SFTP "wikilink"). With some basic steps, we can make sure that this process is so secure that even the NSA will weep bitter tears.
+Unless you have a strong desire to have your server broken into, you're going to access your server via SSH/SFTP. With some basic steps, we can make sure that this process is so secure that even the NSA will weep bitter tears.
 
 By default, password authentication is used to connect to your server via SSH. A cryptographic key-pair is more secure because a private key takes the place of a password, which is generally much more difficult to brute-force. In this section we’ll create a key-pair and configure the server to not accept passwords for SSH logins.
 

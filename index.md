@@ -12,26 +12,26 @@ layout: default
 Tutorials
 ----
 
--   [Tutorials and Setup Guides](tutorials/Tutorials-and-Setup-Guides/)
--   [Ten-Minute Quickstart](tutorials/QuickStart)
+-   [Tutorials and Setup Guides](/tutorials/Tutorials-and-Setup-Guides)
+-   [Ten-Minute Quickstart](/tutorials/QuickStart)
 
 Projects you might try
 ----------------------
 
--   [Projects](projects/Projects/)
+-   [Projects](/projects/Projects)
 
 Glossary
 ---------------
 
--   [Unix](docs/Unix/)
--   [Linux](docs/Linux/)
--   [VirtualBox](docs/VirtualBox/)
--   [BASH](docs/BASH/)
--   [LAMP Stack](docs/LAMP-Stack/)
--   [Apache](docs/Apache/)
--   [MariaDB](docs/MySQL/)
--   [PHP](docs/PHP/)
--   [Tutorials and Setup Guides](tutorials/Tutorials-and-Setup-Guides/)
+-   [Unix](/docs/Unix)
+-   [Linux](/docs/Linux)
+-   [VirtualBox](/docs/VirtualBox)
+-   [BASH](/docs/BASH)
+-   [LAMP Stack](/docs/LAMP-Stack)
+-   [Apache](/docs/Apache)
+-   [MariaDB](/docs/MySQL)
+-   [PHP](/docs/PHP)
+-   [Tutorials and Setup Guides](/tutorials/Tutorials-and-Setup-Guides)
 
 <br/>
 This Wiki remains a work-in-progress, and is meant to contain and extend the notes from the '[Creating LAMP Infrastructure for DH Projects](https://dhlinux.org/2019Coursepack.pdf)' course given at [DHSI](http://dhsi.org/).

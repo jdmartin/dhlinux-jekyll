@@ -12,9 +12,9 @@ _Page Last Updated: {{ page.date | date: '%Y %B %d' }}_
 See also
 --------
 
-[Tutorials](../../tutorials/Tutorials-and-Setup-Guides/)
+[Tutorials](/tutorials/Tutorials-and-Setup-Guides/)
 
 External Links
 --------------
 
-[Slideshow on setting up Debian Linux and VirtualBox - Jon Martin, DHSI 2015](http://prezi.com/l6znv2squxxu/?utm_campaign=share&utm_medium=copy&rc=ex0share)
+[Slideshow on setting up Debian Linux and VirtualBox - Jon Martin, DHSI 2015](http://prezi.com/l6znv2squxxu/)

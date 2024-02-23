@@ -16,14 +16,14 @@ Hey, friend.  If you're here, I'm assuming you want to build a secure server qui
 
 ### Steps to achieve a baseline of security:
 1. Patch.  Run: `apt-get update; apt-get upgrade`
-2. Turn on unattended-upgrades. (See the bottom of [this](../Admin/Notes-on-Post-Debian-Installation/) similar entry.)
+2. Turn on unattended-upgrades. (See the bottom of [this](/tutorials/Admin/Notes-on-Post-Debian-Installation/) similar entry.)
 3. Turn on needrestart. Run: `apt-get install needrestart`.
 4. Restart if needed.
-5. Turn on your firewall. (See [this entry](../Server Security/Iptables/) on iptables.)
+5. Turn on your firewall. (See [this entry](/tutorials/Server%20Security/Iptables/) on iptables.)
 
 And that's honestly it.  From here, you can start thinking about the different services you want to run, or the types of users who might need to access your system (and how to securely achieve this). For me, personally, I would recommend something like this:
 
-- Setup [fail2ban](../Server Security/Fail2ban/).
+- Setup [fail2ban](/tutorials/Server%20Security/Fail2ban/).
 - Install and configure my services.
 - Consider something like [Tailscale](https://tailscale.com/) or [Teleport](https://goteleport.com/) so that I can close my SSH port.
 - Have fun!

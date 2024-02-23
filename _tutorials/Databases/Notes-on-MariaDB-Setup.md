@@ -35,7 +35,7 @@ create database testdb;
 grant all on testdb.* to 'test_user' identified by 'test';
 ```
 
-In the example above, dhsi is the name of the database, dhsi\_user is the username, and dhsi is the password. 
+In the example above, testdb is the name of the database, test\_user is the username, and test is the password. 
 
 **This is not a good password. This is for testing, and you should remove this account when you're sure everything works!** 
 
@@ -61,4 +61,4 @@ With that completed, you’ve successfully configured MariaDB, and you may now p
 Next Steps
 ----------
 
-With Apache and MariaDB installed, let’s install PHP: [Notes on PHP Setup](../Notes-on-PHP-Setup)
+With Apache and MariaDB installed, let’s install PHP: [Notes on PHP Setup](/tutorials/Languages/Notes-on-PHP-Setup)

@@ -79,5 +79,5 @@ Now, let’s make /etc/apache2/sites-available/test.conf
 See also:
 ---------
 
--   [PHP](../../Docs/PHP)
--   [MariaDB](../../Docs/MySQL)
+-   [PHP](/docs/PHP)
+-   [MariaDB](/docs/MySQL)

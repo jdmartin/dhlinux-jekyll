@@ -14,20 +14,20 @@ This article contains links to the various tutorials and prezi presentations on 
 Installation Tutorials
 ----------------------
 
--   [Notes on VirtualBox and Debian Setup](../Notes-on-VirtualBox-and-Debian-Setup)
--   [Notes on Post-Debian Installation](../Notes-on-Post-Debian-Installation)
--   [Notes on Apache Setup](../Notes-on-Apache-Setup)
--   [Notes on Nginx Setup](../Notes-on-Nginx-Setup)
--   [Notes on MariaDB Setup](../Notes-on-MariaDB-Setup)
--   [Notes on PHP Setup](../Notes-on-PHP-Setup)
--   [Notes on PHPMyAdmin Setup](../Notes-on-PHPMyAdmin-Setup)
+-   [Notes on VirtualBox and Debian Setup](../Admin/Notes-on-VirtualBox-and-Debian-Setup)
+-   [Notes on Post-Debian Installation](../Admin/Notes-on-Post-Debian-Installation)
+-   [Notes on Apache Setup](../Web/Notes-on-Apache-Setup)
+-   [Notes on Nginx Setup](../Web/Notes-on-Nginx-Setup)
+-   [Notes on MariaDB Setup](../Databases/Notes-on-MariaDB-Setup)
+-   [Notes on PHP Setup](../Languages/Notes-on-PHP-Setup)
+-   [Notes on PHPMyAdmin Setup](../Languages/Notes-on-PHPMyAdmin-Setup)
 
 Notes on Tools
 --------------
 
--   [Cron](../Cron)
--   [iptables](../iptables) (Firewall)
--   [Fail2ban](../Fail2ban)
+-   [Cron](../Admin/Cron)
+-   [iptables](../Server%20Security/Iptables) (Firewall)
+-   [Fail2ban](../Server%20Security/Fail2ban)
 
 Video Tutorials
 ---------------

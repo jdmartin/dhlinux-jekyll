@@ -9,13 +9,13 @@ _Page Last Updated: {{ page.date | date: '%Y %B %d' }}_
 
 [MariaDB](https://en.wikipedia.org/wiki/MariaDB) is a relational database that uses the [SQL language](https://en.wikipedia.org/wiki/SQL). It is a drop-in, open-source replacement for [MySQL](https://en.wikipedia.org/wiki/MySQL).
 
-It represents the 'M' in the [LAMP Stack](../LAMP-Stack).
+It represents the 'M' in the [LAMP Stack](/docs/LAMP-Stack).
 
 See Also:
 ---------
 
 -   [Overview of the MariaDB Server](https://prezi.com/a6lvi8i-ygmx/mariadb-an-overview/)
--   [Notes on MariaDB Setup](../../tutorials/Notes-on-MariaDB-Setup)
+-   [Notes on MariaDB Setup](/tutorials/Databases/Notes-on-MariaDB-Setup)
 
 External Links:
 ---------------

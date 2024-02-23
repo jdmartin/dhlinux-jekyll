@@ -7,7 +7,7 @@ _Page Last Updated: {{ page.date | date: '%Y %B %d' }}_
 
 ## LAMP Stack
 
-'LAMP' is a commonly used acronym for '[Linux](../Linux), [Apache](../Apache), [MySQL](../MySQL), and [PHP](../PHP).'
+'LAMP' is a commonly used acronym for '[Linux](/docs/Linux), [Apache](/docs/Apache), [MySQL](/docs/MySQL), and [PHP](/docs/PHP).'
 
 See also
 --------
